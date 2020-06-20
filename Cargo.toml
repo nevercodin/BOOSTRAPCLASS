@@ -1,4 +1,6 @@
 [package]
 name = "msgf"
 version = "0.1.0"
-edition = "2
+edition = "2018"
+
+# See more keys and their definition

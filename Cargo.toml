@@ -10,4 +10,4 @@ edition = "2018"
 
 [lib]
 name = "msgf"
-crate-ty
+crate-type = ["staticlib"]

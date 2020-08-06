@@ -1,1 +1,1 @@
-# Musical
+# Musical Sound Generator Framework (MSGF) in Rus

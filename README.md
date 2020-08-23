@@ -7,4 +7,8 @@ This software is released under the MIT License, see LICENSE.txt.
 - "cargo build" で静的ライブラリが作成されます
 - ライブラリをC言語でコールするための msgf.h が用意されています
 - 私自身は Xcode で、Swift+ObjectiveC によるMacのコンソールアプリを作成し、そこからこのRustライブラリをコールしています。
-    - ご連絡いただければ、上記のアプリ環境について情報提供いたします。mailto: JCA032
+    - ご連絡いただければ、上記のアプリ環境について情報提供いたします。mailto: JCA03205@gmail.com
+
+## IF Function
+
+- r

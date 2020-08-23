@@ -11,4 +11,4 @@ This software is released under the MIT License, see LICENSE.txt.
 
 ## IF Function
 
-- r
+- rust_msgf_new() : インスタンスを生

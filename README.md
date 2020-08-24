@@ -12,4 +12,4 @@ This software is released under the MIT License, see LICENSE.txt.
 ## IF Function
 
 - rust_msgf_new() : インスタンスを生成します generate an instance.
-- rust_reci
+- rust_recieve_midi_message() : MIDI受信します re

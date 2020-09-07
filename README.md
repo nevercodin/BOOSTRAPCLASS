@@ -13,4 +13,4 @@ This software is released under the MIT License, see LICENSE.txt.
 
 - rust_msgf_new() : インスタンスを生成します generate an instance.
 - rust_recieve_midi_message() : MIDI受信します receive a midi message.
-- rust_process() : Audio 信号を生成し、Audio Buffer 
+- rust_process() : Audio 信号を生成し、Audio Buffer を渡す処理です(左右2ch) generate stereo audio sig

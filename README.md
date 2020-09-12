@@ -17,3 +17,6 @@ This software is released under the MIT License, see LICENSE.txt.
 - rust_msgf_destroy() : インスタンスを解放します release an instance.
 
 ## Receivable MIDI Data
+
+- Note On/Note Off
+- Control Change

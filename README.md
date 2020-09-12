@@ -21,4 +21,6 @@ This software is released under the MIT License, see LICENSE.txt.
 - Note On/Note Off
 - Control Change
     - CC#1 : Modulation Wheel
-    - CC#7 : Cha
+    - CC#7 : Channel Volume
+    - CC#10 : Pan
+   

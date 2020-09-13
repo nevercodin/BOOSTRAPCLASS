@@ -23,4 +23,5 @@ This software is released under the MIT License, see LICENSE.txt.
     - CC#1 : Modulation Wheel
     - CC#7 : Channel Volume
     - CC#10 : Pan
-   
+    - CC#11 : Expression
+    - CC#12 : Not

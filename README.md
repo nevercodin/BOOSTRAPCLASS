@@ -24,4 +24,6 @@ This software is released under the MIT License, see LICENSE.txt.
     - CC#7 : Channel Volume
     - CC#10 : Pan
     - CC#11 : Expression
-    - CC#12 : Not
+    - CC#12 : Note Shift
+    - CC#13 : Tune
+    

@@ -26,4 +26,5 @@ This software is released under the MIT License, see LICENSE.txt.
     - CC#11 : Expression
     - CC#12 : Note Shift
     - CC#13 : Tune
-    
+    - CC#16-31 : Instrument Parameter
+   

@@ -29,4 +29,6 @@ This software is released under the MIT License, see LICENSE.txt.
     - CC#16-31 : Instrument Parameter
     - CC#91 : Reverb Send
 - Program Change Number
-    - #0-#7 : Virtual Anal
+    - #0-#7 : Virtual Analog(va)
+    - #8    : Sing(sg)
+    -

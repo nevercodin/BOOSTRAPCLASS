@@ -28,4 +28,5 @@ This software is released under the MIT License, see LICENSE.txt.
     - CC#13 : Tune
     - CC#16-31 : Instrument Parameter
     - CC#91 : Reverb Send
-- Program Chan
+- Program Change Number
+    - #0-#7 : Virtual Anal

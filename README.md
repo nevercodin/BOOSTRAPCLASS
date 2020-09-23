@@ -31,4 +31,5 @@ This software is released under the MIT License, see LICENSE.txt.
 - Program Change Number
     - #0-#7 : Virtual Analog(va)
     - #8    : Sing(sg)
-    -
+    - #9    : Sing by Filter(sgf)
+- Pitc

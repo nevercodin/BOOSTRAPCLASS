@@ -36,4 +36,5 @@ This software is released under the MIT License, see LICENSE.txt.
 
 ## Contents of each folder
 
-- /
+- /src : IF, configuration etc.
+- /src/

@@ -39,4 +39,5 @@ This software is released under the MIT License, see LICENSE.txt.
 - /src : IF, configuration etc.
 - /src/general: Framework
 - /src/engine: Singnal Processing & Cotrol Engine
-- /src/a
+- /src/app: Soft Synth. Application
+    - va: Virtu

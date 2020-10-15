@@ -41,4 +41,5 @@ This software is released under the MIT License, see LICENSE.txt.
 - /src/engine: Singnal Processing & Cotrol Engine
 - /src/app: Soft Synth. Application
     - va: Virtual Analog Tone Generator
-    - sg: Sing Tone 
+    - sg: Sing Tone Generator
+    - sgf: Sing by 

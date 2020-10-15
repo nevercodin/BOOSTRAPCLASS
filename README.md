@@ -42,4 +42,4 @@ This software is released under the MIT License, see LICENSE.txt.
 - /src/app: Soft Synth. Application
     - va: Virtual Analog Tone Generator
     - sg: Sing Tone Generator
-    - sgf: Sing by 
+    - sgf: Sing by Filter Tone Generator

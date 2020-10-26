@@ -1,2 +1,3 @@
 # An optional string of text to output at the beginning of the generated file
-header = "/* Copyright (c) 2021 Hasebe Masahiko. Released under the MIT licens
+header = "/* Copyright (c) 2021 Hasebe Masahiko. Released under the MIT license */"
+# An optional name to use as an 

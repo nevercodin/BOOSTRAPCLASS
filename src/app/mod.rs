@@ -1,3 +1,5 @@
 //
 //  app/mod.rs
-//	Musical Sound Generator Frame
+//	Musical Sound Generator Framework
+//
+//  Created by Hasebe Masahik

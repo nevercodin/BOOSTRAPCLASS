@@ -16,4 +16,4 @@ pub mod sgf;
 use crate::app::va::*;
 use crate::app::sg::*;
 use crate::app::sgf::*;
-pub fn get_in
+pub fn get_inst(inst_number:usize, vol:u8,

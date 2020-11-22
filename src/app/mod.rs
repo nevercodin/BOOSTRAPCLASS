@@ -18,4 +18,5 @@ use crate::app::sg::*;
 use crate::app::sgf::*;
 pub fn get_inst(inst_number:usize, vol:u8, pan:u8, exp:u8) -> Box<dyn msgf_inst::Inst> {
     if inst_number < 8 {
-        println!("Changed Va: {
+        println!("Changed Va: {}",inst_number);
+        Box::new(v

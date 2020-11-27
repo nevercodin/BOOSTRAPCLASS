@@ -23,4 +23,6 @@ pub fn get_inst(inst_number:usize, vol:u8, pan:u8, exp:u8) -> Box<dyn msgf_inst:
     }
     else if inst_number == 8 {
         println!("Changed Sg: {}",inst_number);
-        Box::new(sg_inst::InstSg::new(0,vol
+        Box::new(sg_inst::InstSg::new(0,vol,pan,exp))
+    }
+    else if inst_num

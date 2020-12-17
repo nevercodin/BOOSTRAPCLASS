@@ -38,4 +38,5 @@ pub fn get_inst(inst_number:usize, vol:u8, pan:u8, exp:u8) -> Box<dyn msgf_inst:
         println!("Changed Va: {}",inst_number);
         Box::new(va_inst::InstVa::new(4,vol,pan,exp))
     }
-    else if inst_numb
+    else if inst_number == 17 {
+        println!("Changed Va: 

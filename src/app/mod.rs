@@ -36,4 +36,4 @@ pub fn get_inst(inst_number:usize, vol:u8, pan:u8, exp:u8) -> Box<dyn msgf_inst:
     //  for Touch Keyboard MFT2022 version
     else if inst_number == 16 {
         println!("Changed Va: {}",inst_number);
-        Box::n
+        Box::new(va_inst::InstVa::new(4,vol,pan,e

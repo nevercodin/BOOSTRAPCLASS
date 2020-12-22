@@ -44,4 +44,5 @@ pub fn get_inst(inst_number:usize, vol:u8, pan:u8, exp:u8) -> Box<dyn msgf_inst:
     }
     else if inst_number == 18 {
         println!("Changed Sgf: {}",inst_number);
-        Box::new(sgf_ins
+        Box::new(sgf_inst::InstSgf::new(0,vol,pan,exp))
+    

@@ -1,3 +1,6 @@
 //
 //  app/sg/mod.rs
-//	Musical Sound 
+//	Musical Sound Generator Framework
+//      Sing Synth.
+//
+//  Cr

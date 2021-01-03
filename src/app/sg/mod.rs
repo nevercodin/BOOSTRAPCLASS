@@ -4,4 +4,4 @@
 //      Sing Synth.
 //
 //  Created by Hasebe Masahiko on 2022/03/14.
-//  Cop
+//  Copyright (c) 2022 Hasebe Masahiko.

@@ -5,4 +5,5 @@
 //
 //  Created by Hasebe Masahiko on 2022/03/14.
 //  Copyright (c) 2022 Hasebe Masahiko.
-//  Released under the MIT licen
+//  Released under the MIT license
+//  https://opensource.org/licens

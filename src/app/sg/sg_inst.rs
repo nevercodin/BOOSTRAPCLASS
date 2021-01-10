@@ -110,3 +110,41 @@ impl msgf_inst::Inst for InstSg {
         self.active_vce_index = (self.vcevec.len() as i8)-1; // the last order
     }
     fn modulation(&mut self, value: u8) {
+        let mdlt = 0.5f32*(value as f32)/127.0;
+        self.mdlt = mdlt;
+        if let Some(cur_vce) = &mut self.vce {
+            cur_vce.change_pmd(mdlt);
+        }
+    }
+    fn volume(&mut self, value: u8) {
+        self.vol = value;
+        let exp = self.exp;
+        if let Some(cur_vce) = &mut self.vce {
+            cur_vce.amplitude(value, exp);
+        }
+    }
+    fn pan(&mut self, value: u8) {
+        self.pan = Self::calc_pan(value);
+    }
+    fn expression(&mut self, value: u8) {
+        self.exp = value;
+        let vol = self.vol;
+        if let Some(cur_vce) = &mut self.vce {
+            cur_vce.amplitude(vol, value);
+        }
+    }
+    fn pitch(&mut self, bend:i16, tune_coarse:u8, tune_fine:u8) {
+        let pit:f32 = ((bend as f32)*200.0)/8192.0
+                     + ((tune_coarse as f32)-64.0)*100.0
+                     + ((tune_fine as f32)-64.0)*100.0/64.0;
+        self.pit = pit;
+        if let Some(cur_vce) = &mut self.vce {
+            cur_vce.pitch(pit);
+        }
+    }
+    fn sustain(&mut self, _value: u8) {}
+    fn all_sound_off(&mut self) {
+        if let Some(cur_vce) = &mut self.vce {
+            cur_vce.damp();
+        }
+    }

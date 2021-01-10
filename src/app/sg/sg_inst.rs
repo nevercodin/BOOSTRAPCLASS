@@ -174,3 +174,38 @@ impl msgf_inst::Inst for InstSg {
         //  make audio stereo
         abuf_l.mul_and_mix(&mut self.inst_audio, 1.0-self.pan);
         abuf_r.mul_and_mix(&mut self.inst_audio, self.pan);
+
+        if vce_ended {
+            // when voice is released
+            self.vce = None;
+            assert!(self.vcevec.len() > 0);
+            self.remove_note(self.active_vce_index);
+            self.print_str("Released!");
+        }
+    }
+}
+
+impl InstSg {
+
+    pub fn new(mut inst_number: usize, vol: u8, pan: u8, exp: u8) -> Self {
+        let max_tone = sg_prm::SG_MAX_TONE_COUNT;
+        if inst_number >= max_tone {
+            inst_number = max_tone-1;
+        }
+        let prm = Rc::new(Cell::new(sg_prm::SG_TONE_PRM[inst_number]));
+        Self {
+            vce_audio: msgf_afrm::AudioFrame::new(0,msgf_if::MAX_BUFFER_SIZE),
+            inst_audio: msgf_afrm::AudioFrame::new(0,msgf_if::MAX_BUFFER_SIZE),
+            vcevec: Vec::new(),
+            vce: None,
+            active_vce_index: NO_NOTE,
+            inst_number,
+            mdlt: 0.0,//prm.get().osc.lfo_depth,
+            pit: 0.0,
+            vol,
+            pan: Self::calc_pan(pan),
+            exp,
+            spmsg: [0,0,0,0],
+            inst_prm: prm,
+        }
+    }

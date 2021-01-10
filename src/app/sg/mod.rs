@@ -9,4 +9,5 @@
 //  https://opensource.org/licenses/mit-license.php
 //
 pub mod sg_inst;
-pub
+pub mod sg_voice;
+pub mod sg_prm;

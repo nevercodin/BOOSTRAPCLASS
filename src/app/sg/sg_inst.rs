@@ -82,3 +82,31 @@ impl msgf_inst::Inst for InstSg {
             self.vcevec[nt_idx as usize].off = true;
         }
         else {
+            // key pressd, but already no sound
+            self.remove_note(nt_idx);
+        }
+    }
+    fn note_on(&mut self, dt2: u8, dt3: u8) {
+        if let Some(cur_vce) = &mut self.vce {
+            cur_vce.slide(dt2, dt3);
+        }
+        else {// 1st Note On
+            let mut new_vce = Box::new(
+                sg_voice::VoiceSg::new(dt2, dt3, 
+                    self.mdlt, self.pit, self.vol, self.exp, Rc::clone(&self.inst_prm)));
+            // Send Special Message to new voice
+            for i in 0..self.spmsg.len() {
+                new_vce.set_prm(i as u8, self.spmsg[i]);
+            }
+            new_vce.start_sound();
+            self.vce = Some(new_vce);
+        }
+        let cur_note = self.active_vce_index;
+        if cur_note > NO_NOTE && self.vcevec[cur_note as usize].off == true {
+            // Same note is releasing now
+            self.remove_note(cur_note);
+        }
+        self.vcevec.push(NoteSg::new(dt2, dt3));
+        self.active_vce_index = (self.vcevec.len() as i8)-1; // the last order
+    }
+    fn modulation(&mut self, value: u8) {

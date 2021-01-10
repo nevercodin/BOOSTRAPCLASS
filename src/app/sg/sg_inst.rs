@@ -209,3 +209,27 @@ impl InstSg {
             inst_prm: prm,
         }
     }
+    fn calc_pan(mut value:u8) -> f32 {
+        if value == 127 {value = 128;}
+        (value as f32)/128.0
+    }
+    fn search_note(&mut self, note_num: u8) -> i8 {
+        let max_note = self.vcevec.len();
+        for i in 0..max_note {
+            if self.vcevec[i].note == note_num /*&& sts == self.vcevec[i].status()*/ {
+                return i as i8;
+            }            
+        }
+        return -1
+    }
+    fn remove_note(&mut self, nt_idx:i8) {
+        assert!(nt_idx != NO_NOTE);
+        self.vcevec.remove(nt_idx as usize);
+        if nt_idx == self.active_vce_index {
+            self.active_vce_index = NO_NOTE;
+        }
+        else if nt_idx < self.active_vce_index {
+            self.active_vce_index -= 1;
+        }
+    }
+}

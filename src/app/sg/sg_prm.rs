@@ -1,2 +1,3 @@
 //
-//  sg_prm.r
+//  sg_prm.rs
+//	Musical Sound Generator Framew

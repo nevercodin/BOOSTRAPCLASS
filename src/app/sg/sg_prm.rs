@@ -4,4 +4,5 @@
 //      Instruments Parameter
 //
 //  Created by Hasebe Masahiko on 2022/03/15.
-//  Co
+//  Copyright (c) 2022 Hasebe Masahiko.
+//  Rel

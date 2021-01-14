@@ -3,4 +3,5 @@
 //	Musical Sound Generator Framework
 //      Instruments Parameter
 //
-//  Create
+//  Created by Hasebe Masahiko on 2022/03/15.
+//  Co

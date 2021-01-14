@@ -1,3 +1,6 @@
 //
 //  sg_prm.rs
-//	Musical Sound Generator Framew
+//	Musical Sound Generator Framework
+//      Instruments Parameter
+//
+//  Create

@@ -12,4 +12,6 @@ use crate::engine::msgf_additive::*;
 use crate::engine::msgf_aeg::*;
 use crate::engine::msgf_lfo::*;
 
-#[derive(Copy
+#[derive(Copy, Clone)]
+pub struct SynthParameter {
+   

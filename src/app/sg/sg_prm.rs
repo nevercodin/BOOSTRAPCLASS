@@ -16,4 +16,7 @@ use crate::engine::msgf_lfo::*;
 pub struct SynthParameter {
     pub osc: AdditiveParameter,
     pub aeg: AegParameter,
-    pub lfo: LfoPar
+    pub lfo: LfoParameter,
+}
+
+pub const SG_MAX_TONE_

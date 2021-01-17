@@ -19,4 +19,5 @@ pub struct SynthParameter {
     pub lfo: LfoParameter,
 }
 
-pub const SG_MAX_TONE_
+pub const SG_MAX_TONE_COUNT:usize = 1;
+pub const SG_TONE_P

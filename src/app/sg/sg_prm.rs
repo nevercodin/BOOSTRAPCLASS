@@ -15,4 +15,5 @@ use crate::engine::msgf_lfo::*;
 #[derive(Copy, Clone)]
 pub struct SynthParameter {
     pub osc: AdditiveParameter,
-    pub aeg
+    pub aeg: AegParameter,
+    pub lfo: LfoPar

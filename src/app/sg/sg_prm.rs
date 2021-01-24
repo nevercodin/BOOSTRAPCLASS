@@ -23,4 +23,4 @@ pub const SG_MAX_TONE_COUNT:usize = 1;
 pub const SG_TONE_PRM: [SynthParameter; SG_MAX_TONE_COUNT] = [
     SynthParameter {
         osc: AdditiveParameter {
-           
+            coarse_tune: 0,     //  i

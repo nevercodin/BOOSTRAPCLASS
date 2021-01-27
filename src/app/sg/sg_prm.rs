@@ -24,4 +24,4 @@ pub const SG_TONE_PRM: [SynthParameter; SG_MAX_TONE_COUNT] = [
     SynthParameter {
         osc: AdditiveParameter {
             coarse_tune: 0,     //  i32 : 0 means tuning of A=440[Hz]
-        
+            fine_tune: 0.0,     //  

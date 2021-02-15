@@ -29,4 +29,5 @@ pub const SG_TONE_PRM: [SynthParameter; SG_MAX_TONE_COUNT] = [
             prtm_spd: 0.4,      //  f32 : 0.0-1.0 portamento speed
             magnitude: 2.0,     //  f32 : any number ok
         },
-        aeg: AegPar
+        aeg: AegParameter {
+            attack_rat

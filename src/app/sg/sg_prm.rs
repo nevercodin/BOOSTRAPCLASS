@@ -30,4 +30,5 @@ pub const SG_TONE_PRM: [SynthParameter; SG_MAX_TONE_COUNT] = [
             magnitude: 2.0,     //  f32 : any number ok
         },
         aeg: AegParameter {
-            attack_rat
+            attack_rate: 0.6,   //  0.0-1.0
+       

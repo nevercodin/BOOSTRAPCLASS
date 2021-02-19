@@ -31,4 +31,4 @@ pub const SG_TONE_PRM: [SynthParameter; SG_MAX_TONE_COUNT] = [
         },
         aeg: AegParameter {
             attack_rate: 0.6,   //  0.0-1.0
-       
+            decay_rate: 0.05,   //  0.0-1.0 : 1.0 means no

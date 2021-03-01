@@ -35,4 +35,5 @@ pub const SG_TONE_PRM: [SynthParameter; SG_MAX_TONE_COUNT] = [
             sustain_level: 0.5, //  1 means same value as Attack Level
             release_rate: 0.02, //  0.0-1.0
         },
-        lfo: Lfo
+        lfo: LfoParameter {
+            freq: 6.0,  

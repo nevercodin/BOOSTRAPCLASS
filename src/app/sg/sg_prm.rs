@@ -37,4 +37,5 @@ pub const SG_TONE_PRM: [SynthParameter; SG_MAX_TONE_COUNT] = [
         },
         lfo: LfoParameter {
             freq: 6.0,          //  [Hz]
-            wave: LfoWave::T
+            wave: LfoWave::Tri,
+            direction: LfoDirection::

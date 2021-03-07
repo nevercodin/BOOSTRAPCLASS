@@ -108,3 +108,44 @@ impl msgf_voice::Voice for VoiceSg {
     }
     fn set_prm(&mut self, prm_type: u8, value: u8) {
         match prm_type {
+            0 => self.lfo.set_freq(value),  // 16 : LFO freq.
+            1 => self.lfo.set_wave(value),  // 17 : LFO Wave
+            2 => {self.vowel_x = (value as f32-64.0)/64.0; self.calc_formant();}
+            3 => {self.vowel_y = (value as f32-64.0)/64.0; self.calc_formant();}
+            _ => ()
+        }
+    }
+    fn put_lvl_check_buf(&mut self, lvl: f32) {self.lvl_check_buf.put_into_abuf(lvl);}
+    fn damp_counter(&self) -> u32 {self.damp_counter}
+    fn inc_damp_counter(&mut self) {self.damp_counter+=1;}
+    fn ended(&self) -> bool {self.ended}
+    fn set_ended(&mut self, which: bool) {self.ended = which;}
+}
+
+impl VoiceSg {
+    pub fn new(note:u8, vel:u8, _pmd:f32, pit:f32, vol:u8, exp:u8,
+        inst_prm: Rc<Cell<sg_prm::SynthParameter>>) -> Self {
+        let tprm: &sg_prm::SynthParameter = &inst_prm.get();
+        Self {
+            note,
+            vel,
+            status: NoteStatus::DuringNoteOn,
+            damp_counter: 0,
+            lvl_check_buf: msgf_afrm::AudioFrame::new((msgf_if::SAMPLING_FREQ/100.0) as usize, msgf_if::MAX_BUFFER_SIZE),
+            osc: msgf_additive::Additive::new(&tprm.osc, note, pit),
+            aeg: msgf_aeg::Aeg::new(&tprm.aeg),
+            lfo: msgf_lfo::Lfo::new(&tprm.lfo),
+            max_note_vol: VoiceSg::calc_vol(vol, exp),
+            ended: false,
+            vowel_x: 0.0,
+            vowel_y: 0.0,
+        }
+    }
+    fn calc_vol(vol:u8, exp:u8) -> f32 {
+        let exp_sq = exp as f32;
+        let vol_sq = vol as f32;
+        let total_vol = 0.5f32.powf(4.0);    // 4bit margin
+        (total_vol*vol_sq*exp_sq)/16384.0
+    }
+    fn calc_formant(&mut self) {
+        //  (0,0): a, (1,0):e, (-1,0):i, (0,1):u, (0,-1):o

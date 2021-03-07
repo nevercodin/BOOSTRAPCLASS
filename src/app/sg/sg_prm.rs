@@ -42,3 +42,5 @@ pub const SG_TONE_PRM: [SynthParameter; SG_MAX_TONE_COUNT] = [
             fadein_time: 100,   //  1: AUDIO_FRAME_PER_CONTROL / SAMPLING_FREQ (=3msec)
             delay_time: 100,    //    same as above
         },
+    },
+];

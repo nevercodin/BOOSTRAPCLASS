@@ -149,3 +149,28 @@ impl VoiceSg {
     }
     fn calc_formant(&mut self) {
         //  (0,0): a, (1,0):e, (-1,0):i, (0,1):u, (0,-1):o
+        let mut f1 = 800.0;
+        let mut f2 = 1200.0;
+        if self.vowel_x == 0.0 && self.vowel_y == 0.0 {}
+        else if self.vowel_y > self.vowel_x {
+            if self.vowel_y > -self.vowel_x {       /*a-u*/
+                f1-=500.0*self.vowel_y;
+            }
+            else {  /*a-i*/
+                f1+=500.0*self.vowel_x;
+                f2+=1100.0*self.vowel_x;
+            }
+        } else {
+            if self.vowel_y > -self.vowel_x {       /*a-e*/
+                f1-=300.0*self.vowel_x;
+                f2+=700.0*self.vowel_x;
+            }
+            else {  /*a-o*/
+                f1+=300.0*self.vowel_y;
+                f2+=300.0*self.vowel_y;
+            }
+        }
+        self.osc.change_f1(f1);
+        self.osc.change_f2(f2);
+    }
+}

@@ -40,4 +40,5 @@ pub const SG_TONE_PRM: [SynthParameter; SG_MAX_TONE_COUNT] = [
             wave: LfoWave::Tri,
             direction: LfoDirection::LfoBoth,
             fadein_time: 100,   //  1: AUDIO_FRAME_PER_CONTROL / SAMPLING_FREQ (=3msec)
-            delay_time:
+            delay_time: 100,    //    same as above
+        },

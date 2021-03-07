@@ -64,3 +64,47 @@ impl msgf_voice::Voice for VoiceSg {
     }
     fn note_off(&mut self) {
         self.status = NoteStatus::AfterNoteOff;
+        self.aeg.move_to_release()
+    }
+    fn note_num(&self) -> u8 {self.note}
+    fn velocity(&self) -> u8 {self.vel}
+    fn change_pmd(&mut self, value: f32) {
+        self.osc.change_pmd(value);
+    }
+    fn amplitude(&mut self, volume: u8, expression: u8) {
+        self.max_note_vol = VoiceSg::calc_vol(volume, expression);
+    }
+    fn pitch(&mut self, pitch:f32) {
+        self.osc.change_pitch(pitch);
+    }
+    fn status(&self) -> NoteStatus {self.status}
+    fn damp(&mut self) {
+        self.status = NoteStatus::DuringDamp;
+        self.damp_counter = 0;
+    }
+    fn process(&mut self, abuf: &mut msgf_afrm::AudioFrame, in_number_frames: usize) -> bool {
+        if self.ended {return self.ended;}
+
+        //  Pitch Control
+        let cbuf_size = msgf_cfrm::CtrlFrame::get_cbuf_size(in_number_frames);
+        let lbuf = &mut msgf_cfrm::CtrlFrame::new(cbuf_size);
+
+        //  LFO
+        self.lfo.process_c(lbuf);
+
+        //  Oscillator
+        self.osc.process_ac(abuf, lbuf);
+
+        //  AEG
+        let aegbuf = &mut msgf_cfrm::CtrlFrame::new(cbuf_size);
+        self.aeg.process_c(aegbuf);
+
+        //  Volume
+        for i in 0..abuf.sample_number {
+            let aeg = aegbuf.ctrl_for_audio(i);
+            abuf.mul_rate(i, self.max_note_vol*aeg);
+        }
+        msgf_voice::manage_note_level(self, abuf, aegbuf)
+    }
+    fn set_prm(&mut self, prm_type: u8, value: u8) {
+        match prm_type {

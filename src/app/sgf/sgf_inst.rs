@@ -101,3 +101,33 @@ impl msgf_inst::Inst for InstSgf {
             new_vce.start_sound();
             self.vce = Some(new_vce);
         }
+        let cur_note = self.active_vce_index;
+        if cur_note > NO_NOTE && self.vcevec[cur_note as usize].off == true {
+            // Same note is releasing now
+            self.remove_note(cur_note);
+        }
+        self.vcevec.push(NoteSgf::new(dt2, dt3));
+        self.active_vce_index = (self.vcevec.len() as i8)-1; // the last order
+    }
+    fn per_note_after(&mut self, note: u8, val: u8) {
+        let nt_idx = self.search_note(note);
+        if nt_idx == NO_NOTE {return}
+        if nt_idx == self.active_vce_index {
+            // sounding voice
+            if let Some(cur_vce) = &mut self.vce {
+                let mdlt: f32 = InstSgf::calc_pmd(val);
+                self.mdlt = mdlt;
+                cur_vce.change_pmd(mdlt);
+            }
+            self.vcevec[nt_idx as usize].off = true;
+        }
+    }
+    fn modulation(&mut self, value: u8) {
+        let mdlt = InstSgf::calc_pmd(value);
+        self.mdlt = mdlt;
+        if let Some(cur_vce) = &mut self.vce {
+            cur_vce.change_pmd(mdlt);
+        }
+    }
+    fn volume(&mut self, value: u8) {
+        self.vol = value;

@@ -57,3 +57,47 @@ impl Drop for InstSgf {
 }
 //---------------------------------------------------------
 impl msgf_inst::Inst for InstSgf {
+
+    fn change_inst(&mut self, mut inst_number: usize, vol: u8, pan: u8, exp: u8) {
+        let max_tone = sgf_prm::SGF_MAX_TONE_COUNT;
+        if inst_number >= max_tone {
+            inst_number = max_tone-1;
+        }
+        let _ = &self.inst_prm.replace(sgf_prm::SGF_TONE_PRM[inst_number]);
+        self.inst_number = inst_number;
+        self.mdlt = self.inst_prm.get().osc.lfo_depth;
+        self.pit = 0.0;
+        self.vol = vol;
+        self.pan = Self::calc_pan(pan);
+        self.exp = exp;
+    }
+    fn note_off(&mut self, dt2: u8, _dt3: u8) {
+        let nt_idx = self.search_note(dt2);
+        if nt_idx == NO_NOTE {return}
+        if nt_idx == self.active_vce_index {
+            // sounding voice
+            if let Some(cur_vce) = &mut self.vce {
+                cur_vce.note_off();
+            }
+            self.vcevec[nt_idx as usize].off = true;
+        }
+        else {
+            // key pressd, but already no sound
+            self.remove_note(nt_idx);
+        }
+    }
+    fn note_on(&mut self, dt2: u8, dt3: u8) {
+        if let Some(cur_vce) = &mut self.vce {
+            cur_vce.slide(dt2, dt3);
+        }
+        else {// 1st Note On
+            let mut new_vce = Box::new(
+                sgf_voice::VoiceSgf::new(dt2, dt3, 
+                    self.mdlt, self.pit, self.vol, self.exp, Rc::clone(&self.inst_prm)));
+            // Send Special Message to new voice
+            for i in 0..self.spmsg.len() {  //  Formant のみ
+                new_vce.set_prm(i as u8, self.spmsg[i]);
+            }
+            new_vce.start_sound();
+            self.vce = Some(new_vce);
+        }

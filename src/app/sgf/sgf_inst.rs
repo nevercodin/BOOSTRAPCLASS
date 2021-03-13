@@ -205,3 +205,33 @@ impl InstSgf {
         if inst_number >= max_tone {
             inst_number = max_tone-1;
         }
+        let prm = Rc::new(Cell::new(sgf_prm::SGF_TONE_PRM[inst_number]));
+        Self {
+            vce_audio: msgf_afrm::AudioFrame::new(0,msgf_if::MAX_BUFFER_SIZE),
+            inst_audio: msgf_afrm::AudioFrame::new(0,msgf_if::MAX_BUFFER_SIZE),
+            vcevec: Vec::new(),
+            vce: None,
+            active_vce_index: NO_NOTE,
+            inst_number,
+            mdlt: prm.get().osc.lfo_depth,
+            pit: 0.0,
+            vol,
+            pan: Self::calc_pan(pan),
+            exp,
+            spmsg: [0,0,0,0],   //[LPF, --, 1st Fmnt, 2nd Fmnt]
+            inst_prm: prm,
+        }
+    }
+    fn calc_pan(mut value:u8) -> f32 {
+        if value == 127 {value = 128;}
+        (value as f32)/127.0
+    }
+    fn calc_pmd(value:u8) -> f32 {
+        0.5f32*(value as f32)/(127.0*6.0)     // MAX:+-200[cent]
+    }
+    fn search_note(&mut self, note_num: u8) -> i8 {
+        let max_note = self.vcevec.len();
+        for i in 0..max_note {
+            if self.vcevec[i].note == note_num /*&& sts == self.vcevec[i].status()*/ {
+                return i as i8;
+            }            

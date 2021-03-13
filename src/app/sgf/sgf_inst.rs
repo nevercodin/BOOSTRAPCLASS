@@ -163,3 +163,45 @@ impl msgf_inst::Inst for InstSgf {
     }
     fn set_prm(&mut self, prm_type: u8, value: u8) {
         let idx: usize = prm_type as usize;
+        if idx <= self.spmsg.len() {
+            self.spmsg[idx] = value;
+            if let Some(cur_vce) = &mut self.vce {
+                cur_vce.set_prm(prm_type, value)
+            }
+        }
+    }
+    fn process(&mut self,
+      abuf_l: &mut msgf_afrm::AudioFrame,
+      abuf_r: &mut msgf_afrm::AudioFrame,
+      in_number_frames: usize) {
+        self.vce_audio.set_sample_number(in_number_frames as usize);
+        self.inst_audio.set_sample_number(in_number_frames as usize);
+        self.inst_audio.clr_abuf();
+        let mut vce_ended = false;
+ 
+        if let Some(cur_vce) = &mut self.vce {
+            vce_ended = cur_vce.process(&mut self.vce_audio, in_number_frames);
+            self.inst_audio.mul_and_mix(&mut self.vce_audio, 1.0);
+        }
+
+        //  make audio stereo
+        abuf_l.mul_and_mix(&mut self.inst_audio, 1.0-self.pan);
+        abuf_r.mul_and_mix(&mut self.inst_audio, self.pan);
+
+        if vce_ended {
+            // when voice is released
+            self.vce = None;
+            assert!(self.vcevec.len() > 0);
+            self.remove_note(self.active_vce_index);
+            self.print_str("Released!");
+        }
+    }
+}
+
+impl InstSgf {
+
+    pub fn new(mut inst_number: usize, vol: u8, pan: u8, exp: u8) -> Self {
+        let max_tone = sgf_prm::SGF_MAX_TONE_COUNT;
+        if inst_number >= max_tone {
+            inst_number = max_tone-1;
+        }

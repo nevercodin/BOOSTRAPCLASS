@@ -235,3 +235,17 @@ impl InstSgf {
             if self.vcevec[i].note == note_num /*&& sts == self.vcevec[i].status()*/ {
                 return i as i8;
             }            
+        }
+        return -1
+    }
+    fn remove_note(&mut self, nt_idx:i8) {
+        assert!(nt_idx != NO_NOTE);
+        self.vcevec.remove(nt_idx as usize);
+        if nt_idx == self.active_vce_index {
+            self.active_vce_index = NO_NOTE;
+        }
+        else if nt_idx < self.active_vce_index {
+            self.active_vce_index -= 1;
+        }
+    }
+}

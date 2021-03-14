@@ -69,3 +69,38 @@ impl msgf_voice::Voice for VoiceSgf {
         let real_note = note - NOTE_OFFSET;
         self.note = real_note;
         self.vel = vel;
+        self.status = NoteStatus::DuringNoteOn;
+        self.damp_counter = 0;
+        self.vcl.change_note(note- NOTE_OFFSET);
+        self.aeg.move_to_attack();
+        self.lfo.start();
+        self.scl_adjust_vol = VoiceSgf::calc_scaling_vol(real_note);
+    }
+    fn note_off(&mut self) {
+        self.status = NoteStatus::AfterNoteOff;
+        self.aeg.move_to_release()
+    }
+    fn note_num(&self) -> u8 {self.note + NOTE_OFFSET}
+    fn velocity(&self) -> u8 {self.vel}
+    fn change_pmd(&mut self, value: f32) {
+        self.vcl.change_pmd(value);
+    }
+    fn amplitude(&mut self, volume: u8, expression: u8) {
+        self.max_note_vol = VoiceSgf::calc_vol(volume, expression);
+    }
+    fn pitch(&mut self, pitch:f32) {
+        self.vcl.change_pitch(pitch);
+    }
+    fn status(&self) -> NoteStatus {self.status}
+    fn damp(&mut self) {
+        self.status = NoteStatus::DuringDamp;
+        self.damp_counter = 0;
+    }
+    fn process(&mut self, abuf: &mut msgf_afrm::AudioFrame, in_number_frames: usize) -> bool {
+        if self.ended {return self.ended;}
+
+        //  Pitch Control
+        let cbuf_size = msgf_cfrm::CtrlFrame::get_cbuf_size(in_number_frames);
+        let lbuf = &mut msgf_cfrm::CtrlFrame::new(cbuf_size);
+
+        //  LFO

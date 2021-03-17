@@ -183,3 +183,29 @@ impl VoiceSgf {
         if self.vowel_x == 0.0 && self.vowel_y == 0.0 {
             self.fmnt_adjust_vol = 1.0;
         }
+        else if self.vowel_y > self.vowel_x {
+            if self.vowel_y > -self.vowel_x {   /*a->u*/
+                f1-=500.0*self.vowel_y; // y:0->1, 800->300
+                self.fmnt_adjust_vol = 1.0 + self.vowel_y*0.3;
+            }
+            else {                              /*a->i*/
+                f1+=500.0*self.vowel_x; // x:0->-1, 800->300
+                f2-=1100.0*self.vowel_x;// 1200->2300
+                self.fmnt_adjust_vol = 1.0 - self.vowel_x*0.3;
+            }
+        } else {
+            if self.vowel_y > -self.vowel_x {   /*a->e*/
+                f1-=300.0*self.vowel_x; // x:0->1, 800->500
+                f2+=700.0*self.vowel_x; // 1200->1900
+                self.fmnt_adjust_vol = 1.0;
+            }
+            else {                              /*a->o*/
+                f1+=300.0*self.vowel_y;  // y:0->-1, 800->500
+                f2+=400.0*self.vowel_y;  // 1200->800
+                self.fmnt_adjust_vol = 1.0 + self.vowel_y*0.5;
+            }
+        }
+        self.frm1.set_bpf(f1, BPF_RESO);
+        self.frm2.set_bpf(f2, BPF_RESO);
+    }
+}

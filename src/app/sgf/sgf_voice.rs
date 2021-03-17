@@ -146,3 +146,40 @@ impl VoiceSgf {
     pub fn new(org_note:u8, vel:u8, pmd:f32, pit:f32, vol:u8, exp:u8,
         inst_prm: Rc<Cell<sgf_prm::SynthParameter>>) -> Self {
         let tprm: &sgf_prm::SynthParameter = &inst_prm.get();
+        let real_note = org_note - NOTE_OFFSET;
+        Self {
+            note: real_note,
+            vel,
+            status: NoteStatus::DuringNoteOn,
+            damp_counter: 0,
+            lvl_check_buf: msgf_afrm::AudioFrame::new((msgf_if::SAMPLING_FREQ/100.0) as usize, msgf_if::MAX_BUFFER_SIZE),
+            vcl: msgf_vocal::Vocal::new(&tprm.osc, real_note, pmd, pit),
+            lpf: msgf_biquad::Biquad::new(),
+            frm1: msgf_biquad::Biquad::new(),
+            frm2: msgf_biquad::Biquad::new(),
+            aeg: msgf_aeg::Aeg::new(&tprm.aeg),
+            lfo: msgf_lfo::Lfo::new(&tprm.lfo),
+            max_note_vol: VoiceSgf::calc_vol(vol, exp),
+            ended: false,
+            vowel_x: 0.0,
+            vowel_y: 0.0,
+            fmnt_adjust_vol: 1.0,
+            scl_adjust_vol: VoiceSgf::calc_scaling_vol(real_note),
+        }
+    }
+    fn calc_scaling_vol(note:u8) -> f32 {
+        1.0 - 0.01*((note as f32)-60.0)
+    }
+    fn calc_vol(vol:u8, exp:u8) -> f32 {
+        let exp_sq = exp as f32;
+        let vol_sq = vol as f32;
+        let total_vol = 2.0; //0.5f32.powf(4.0);    // 4bit margin
+        (total_vol*vol_sq*exp_sq)/16384.0
+    }
+    fn calc_formant(&mut self) {
+        //  (0,0): a, (1,0):e, (-1,0):i, (0,1):u, (0,-1):o
+        let mut f1 = DEFAULT_F1;
+        let mut f2 = DEFAULT_F2;
+        if self.vowel_x == 0.0 && self.vowel_y == 0.0 {
+            self.fmnt_adjust_vol = 1.0;
+        }

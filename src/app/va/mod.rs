@@ -1,3 +1,6 @@
 //
 //  app/va/mod.rs
-//	Musical Sound Gener
+//	Musical Sound Generator Framework
+//      Virtual Analog Synth.
+//
+//  Create

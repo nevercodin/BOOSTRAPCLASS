@@ -3,4 +3,5 @@
 //	Musical Sound Generator Framework
 //      Virtual Analog Synth.
 //
-//  Create
+//  Created by Hasebe Masahiko on 2021/11/21.
+//  Copyri

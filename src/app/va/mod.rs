@@ -4,4 +4,5 @@
 //      Virtual Analog Synth.
 //
 //  Created by Hasebe Masahiko on 2021/11/21.
-//  Copyri
+//  Copyright (c) 2021 Hasebe Masahiko.
+//  Released

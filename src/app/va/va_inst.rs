@@ -1,4 +1,6 @@
 //
 //  va_inst.rs
 //	Musical Sound Generator Framework
-//      Virtual Analog
+//      Virtual Analog Instrument Class
+//
+//  Create

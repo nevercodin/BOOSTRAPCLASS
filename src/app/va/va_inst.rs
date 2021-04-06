@@ -3,4 +3,4 @@
 //	Musical Sound Generator Framework
 //      Virtual Analog Instrument Class
 //
-//  Create
+//  Created by Hasebe Masahiko on 2021/11/21

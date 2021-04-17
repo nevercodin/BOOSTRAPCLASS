@@ -22,4 +22,5 @@ use crate::app::va::*;
 //		Definition
 //---------------------------------------------------------
 const MAX_PB_RANGE:f32 = 1200.0;
-co
+const MIDI_MAX_PB_VAL:f32 = 8192.0;
+const 

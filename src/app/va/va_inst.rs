@@ -27,4 +27,5 @@ const MIDI_CENTER_VAL:f32 = 64.0;
 //---------------------------------------------------------
 pub struct InstVa {
     vce_audio: msgf_afrm::AudioFrame,
-    inst_audio: m
+    inst_audio: msgf_afrm::AudioFrame,
+    vce

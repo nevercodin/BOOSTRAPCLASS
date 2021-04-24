@@ -26,4 +26,5 @@ const MIDI_MAX_PB_VAL:f32 = 8192.0;
 const MIDI_CENTER_VAL:f32 = 64.0;
 //---------------------------------------------------------
 pub struct InstVa {
-    vce_audio: ms
+    vce_audio: msgf_afrm::AudioFrame,
+    inst_audio: m

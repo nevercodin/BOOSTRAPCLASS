@@ -30,3 +30,5 @@ pub struct InstVa {
     inst_audio: msgf_afrm::AudioFrame,
     vcevec: Vec<va_voice::VoiceVa>,
     delay: msgf_delay::Delay,
+    inst_number: usize,
+    mdlt: f32,

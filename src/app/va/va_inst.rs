@@ -31,4 +31,5 @@ pub struct InstVa {
     vcevec: Vec<va_voice::VoiceVa>,
     delay: msgf_delay::Delay,
     inst_number: usize,
-    mdlt: f32,
+    mdlt: f32,  //  0.0..0.5
+    pit: f32,   // 

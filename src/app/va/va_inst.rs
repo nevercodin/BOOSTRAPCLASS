@@ -33,4 +33,5 @@ pub struct InstVa {
     inst_number: usize,
     mdlt: f32,  //  0.0..0.5
     pit: f32,   //  [cent]
-    vol: u8,    //  0.
+    vol: u8,    //  0..127
+    pan: f32,   //  -1..0..+

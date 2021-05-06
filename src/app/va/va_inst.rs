@@ -38,3 +38,4 @@ pub struct InstVa {
     exp: u8,    //  0..127
     inst_prm: Rc<Cell<va_prm::SynthParameter>>,
 }
+//------------------------------------------

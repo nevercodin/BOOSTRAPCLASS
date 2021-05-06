@@ -34,4 +34,6 @@ pub struct InstVa {
     mdlt: f32,  //  0.0..0.5
     pit: f32,   //  [cent]
     vol: u8,    //  0..127
-    pan: f32,   //  -1..0..+
+    pan: f32,   //  -1..0..+1
+    exp: u8,    //  0..127
+    inst_prm: R

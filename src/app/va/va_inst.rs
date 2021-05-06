@@ -36,4 +36,5 @@ pub struct InstVa {
     vol: u8,    //  0..127
     pan: f32,   //  -1..0..+1
     exp: u8,    //  0..127
-    inst_prm: R
+    inst_prm: Rc<Cell<va_prm::SynthParameter>>,
+}

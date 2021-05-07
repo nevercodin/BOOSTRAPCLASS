@@ -41,4 +41,5 @@ pub struct InstVa {
 //---------------------------------------------------------
 //		Implements
 //---------------------------------------------------------
-impl MsgfD
+impl MsgfDisplay for InstVa {}
+impl Drop for I

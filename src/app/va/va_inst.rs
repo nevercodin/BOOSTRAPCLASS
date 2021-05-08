@@ -43,4 +43,6 @@ pub struct InstVa {
 //---------------------------------------------------------
 impl MsgfDisplay for InstVa {}
 impl Drop for InstVa {
-    fn drop(&mut self) {self.vce
+    fn drop(&mut self) {self.vcevec.clear();}
+}
+//-----------------

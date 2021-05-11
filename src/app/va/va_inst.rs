@@ -49,3 +49,4 @@ impl Drop for InstVa {
 impl msgf_inst::Inst for InstVa {
 /*
     fn new(inst_number: usize, vol: u8, pan: u8, exp: u8) -> Self {
+        let max_tone = va_prm::M

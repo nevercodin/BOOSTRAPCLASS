@@ -48,3 +48,4 @@ impl Drop for InstVa {
 //---------------------------------------------------------
 impl msgf_inst::Inst for InstVa {
 /*
+    fn new(inst_number: usize, vo

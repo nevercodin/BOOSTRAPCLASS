@@ -52,4 +52,4 @@ impl msgf_inst::Inst for InstVa {
         let max_tone = va_prm::MAX_TONE_COUNT;
         let mut inst_num = inst_number;
         if inst_number >= max_tone {
-  
+            inst_num = max_tone-1

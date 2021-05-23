@@ -54,4 +54,4 @@ impl msgf_inst::Inst for InstVa {
         if inst_number >= max_tone {
             inst_num = max_tone-1;
         }
-        let prm = Rc::new(
+        let prm = Rc::new(Cell::new(va_prm::TONE_PRM[inst_number]

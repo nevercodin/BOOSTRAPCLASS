@@ -56,4 +56,4 @@ impl msgf_inst::Inst for InstVa {
         }
         let prm = Rc::new(Cell::new(va_prm::TONE_PRM[inst_number]));
         Self {
-      
+            vce_audio: msgf_afrm::AudioFr

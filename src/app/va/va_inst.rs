@@ -59,4 +59,6 @@ impl msgf_inst::Inst for InstVa {
             vce_audio: msgf_afrm::AudioFrame::new(0,msgf_if::MAX_BUFFER_SIZE),
             inst_audio: msgf_afrm::AudioFrame::new(0,msgf_if::MAX_BUFFER_SIZE),
             vcevec: Vec::new(),
-            delay: msgf_delay::Delay::new(&prm.get().delay
+            delay: msgf_delay::Delay::new(&prm.get().delay),
+            inst_number: inst_num,
+        

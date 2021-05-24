@@ -58,4 +58,5 @@ impl msgf_inst::Inst for InstVa {
         Self {
             vce_audio: msgf_afrm::AudioFrame::new(0,msgf_if::MAX_BUFFER_SIZE),
             inst_audio: msgf_afrm::AudioFrame::new(0,msgf_if::MAX_BUFFER_SIZE),
-     
+            vcevec: Vec::new(),
+            dela

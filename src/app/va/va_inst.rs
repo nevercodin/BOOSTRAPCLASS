@@ -62,4 +62,6 @@ impl msgf_inst::Inst for InstVa {
             delay: msgf_delay::Delay::new(&prm.get().delay),
             inst_number: inst_num,
             mdlt: prm.get().osc.lfo_depth,
-            p
+            pit: 0.0,
+            vol,
+           

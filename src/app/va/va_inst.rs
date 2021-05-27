@@ -70,4 +70,4 @@ impl msgf_inst::Inst for InstVa {
         }
     }
 */
-    fn change_inst(&mut self, mut
+    fn change_inst(&mut self, mut inst_number: usize, vol: u8, pan: u8

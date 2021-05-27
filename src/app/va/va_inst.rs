@@ -68,4 +68,6 @@ impl msgf_inst::Inst for InstVa {
             exp,
             inst_prm: prm,
         }
- 
+    }
+*/
+    fn change_inst(&mut self, mut

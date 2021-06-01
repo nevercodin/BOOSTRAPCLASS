@@ -76,4 +76,5 @@ impl msgf_inst::Inst for InstVa {
             inst_number = max_tone-1;
         }
         let _ = &self.inst_prm.replace(va_prm::TONE_PRM[inst_number]);
-        self.delay = msgf_delay::Delay::new(&self.i
+        self.delay = msgf_delay::Delay::new(&self.inst_prm.get().delay);
+        

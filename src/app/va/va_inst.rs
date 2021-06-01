@@ -75,4 +75,4 @@ impl msgf_inst::Inst for InstVa {
         if inst_number >= max_tone {
             inst_number = max_tone-1;
         }
-        let 
+        let _ = &self.inst_prm.replace(va_prm::TONE_PRM

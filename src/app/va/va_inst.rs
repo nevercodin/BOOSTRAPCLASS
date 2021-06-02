@@ -79,4 +79,6 @@ impl msgf_inst::Inst for InstVa {
         self.delay = msgf_delay::Delay::new(&self.inst_prm.get().delay);
         self.inst_number = inst_number;
         self.mdlt = self.inst_prm.get().osc.lfo_depth;
-        self.pit
+        self.pit = 0.0;
+        self.vol = vol;
+        s

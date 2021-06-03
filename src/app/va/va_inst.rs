@@ -81,4 +81,5 @@ impl msgf_inst::Inst for InstVa {
         self.mdlt = self.inst_prm.get().osc.lfo_depth;
         self.pit = 0.0;
         self.vol = vol;
-        s
+        self.pan = Self::calc_pan(pan);
+   

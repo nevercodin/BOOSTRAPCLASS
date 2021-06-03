@@ -82,4 +82,6 @@ impl msgf_inst::Inst for InstVa {
         self.pit = 0.0;
         self.vol = vol;
         self.pan = Self::calc_pan(pan);
-   
+        self.exp = exp;
+    }
+    fn note_

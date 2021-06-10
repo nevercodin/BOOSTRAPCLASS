@@ -86,4 +86,5 @@ impl msgf_inst::Inst for InstVa {
     }
     fn note_off(&mut self, dt2: u8, _dt3: u8) {
         let nt_opt = self.search_note(dt2, NoteStatus::DuringNoteOn);
-        if
+        if let Some(nt) = nt_opt {
+            nt.note_of

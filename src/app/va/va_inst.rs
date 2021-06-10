@@ -84,4 +84,5 @@ impl msgf_inst::Inst for InstVa {
         self.pan = Self::calc_pan(pan);
         self.exp = exp;
     }
-    fn note_
+    fn note_off(&mut self, dt2: u8, _dt3: u8) {
+  

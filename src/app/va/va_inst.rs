@@ -91,4 +91,5 @@ impl msgf_inst::Inst for InstVa {
         }
     }
     fn note_on(&mut self, dt2: u8, dt3: u8) {
-        let mut ne
+        let mut new_voice = va_voice::VoiceVa::new(
+        

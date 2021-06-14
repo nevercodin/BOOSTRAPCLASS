@@ -90,4 +90,5 @@ impl msgf_inst::Inst for InstVa {
             nt.note_off();
         }
     }
-    fn note_on(&mut self, d
+    fn note_on(&mut self, dt2: u8, dt3: u8) {
+        let mut ne

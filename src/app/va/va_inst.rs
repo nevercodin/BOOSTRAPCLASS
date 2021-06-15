@@ -97,4 +97,4 @@ impl msgf_inst::Inst for InstVa {
         new_voice.start_sound();
         self.vcevec.push(new_voice);
     }
-    fn 
+    fn per_note_after(&mut self, dt2: u8, d

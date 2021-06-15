@@ -98,4 +98,5 @@ impl msgf_inst::Inst for InstVa {
         self.vcevec.push(new_voice);
     }
     fn per_note_after(&mut self, dt2: u8, dt3: u8) {
-        let nt = self.search_note( dt2, NoteStatus::DuringNoteO
+        let nt = self.search_note( dt2, NoteStatus::DuringNoteOn);
+        if let Some(v

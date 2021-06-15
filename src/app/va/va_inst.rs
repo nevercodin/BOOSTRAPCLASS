@@ -97,4 +97,5 @@ impl msgf_inst::Inst for InstVa {
         new_voice.start_sound();
         self.vcevec.push(new_voice);
     }
-    fn per_note_after(&mut self, dt2: u8, d
+    fn per_note_after(&mut self, dt2: u8, dt3: u8) {
+        let nt = self.sear

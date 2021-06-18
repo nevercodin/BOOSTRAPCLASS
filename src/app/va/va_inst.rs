@@ -104,3 +104,4 @@ impl msgf_inst::Inst for InstVa {
             vce.change_pmd(pmd);    //  0 - 1/12
         }
     }
+    fn modulation(&mut self, va

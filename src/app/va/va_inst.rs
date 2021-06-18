@@ -101,4 +101,6 @@ impl msgf_inst::Inst for InstVa {
         let nt = self.search_note( dt2, NoteStatus::DuringNoteOn);
         if let Some(vce) = nt {
             let pmd = (dt3 as f32)/(127.0*12.0);    // MAX+-100[cent]
-            vce.change_pmd(pmd);    //
+            vce.change_pmd(pmd);    //  0 - 1/12
+        }
+    }

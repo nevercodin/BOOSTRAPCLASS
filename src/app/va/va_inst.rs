@@ -106,4 +106,5 @@ impl msgf_inst::Inst for InstVa {
     }
     fn modulation(&mut self, value: u8) {
         let mdlt = 0.5f32*(value as f32)/127.0; // 0.0 - 0.5
-        self.mdl
+        self.mdlt = mdlt;
+        self.vceve

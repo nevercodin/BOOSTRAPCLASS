@@ -107,4 +107,6 @@ impl msgf_inst::Inst for InstVa {
     fn modulation(&mut self, value: u8) {
         let mdlt = 0.5f32*(value as f32)/127.0; // 0.0 - 0.5
         self.mdlt = mdlt;
-        self.vcevec.iter_mut().for_each(|vce| vce.change_pmd
+        self.vcevec.iter_mut().for_each(|vce| vce.change_pmd(mdlt));
+    }
+    fn volume(&mut

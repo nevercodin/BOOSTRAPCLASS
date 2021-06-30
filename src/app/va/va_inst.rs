@@ -116,4 +116,5 @@ impl msgf_inst::Inst for InstVa {
     }
     fn pan(&mut self, value: u8) {
         self.pan = Self::calc_pan(value);
-  
+    }
+    fn expression(&mut self, value:

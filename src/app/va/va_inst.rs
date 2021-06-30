@@ -110,4 +110,6 @@ impl msgf_inst::Inst for InstVa {
         self.vcevec.iter_mut().for_each(|vce| vce.change_pmd(mdlt));
     }
     fn volume(&mut self, value: u8) {
-        self.v
+        self.vol = value;
+        let exp = self.exp;
+  

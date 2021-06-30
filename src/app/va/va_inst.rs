@@ -115,4 +115,5 @@ impl msgf_inst::Inst for InstVa {
         self.vcevec.iter_mut().for_each(|vce| vce.amplitude(value, exp));
     }
     fn pan(&mut self, value: u8) {
-       
+        self.pan = Self::calc_pan(value);
+  

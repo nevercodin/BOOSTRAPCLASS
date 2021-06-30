@@ -118,4 +118,5 @@ impl msgf_inst::Inst for InstVa {
         self.pan = Self::calc_pan(value);
     }
     fn expression(&mut self, value: u8) {
-        self.exp = va
+        self.exp = value;
+        let vol = self.vol;

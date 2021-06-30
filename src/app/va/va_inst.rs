@@ -114,4 +114,5 @@ impl msgf_inst::Inst for InstVa {
         let exp = self.exp;
         self.vcevec.iter_mut().for_each(|vce| vce.amplitude(value, exp));
     }
-   
+    fn pan(&mut self, value: u8) {
+       

@@ -112,4 +112,4 @@ impl msgf_inst::Inst for InstVa {
     fn volume(&mut self, value: u8) {
         self.vol = value;
         let exp = self.exp;
-  
+        self.vcevec.iter_mut().for_each(|vc

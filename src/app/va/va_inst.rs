@@ -120,4 +120,6 @@ impl msgf_inst::Inst for InstVa {
     fn expression(&mut self, value: u8) {
         self.exp = value;
         let vol = self.vol;
-        self.vcevec.iter_mut().for_eac
+        self.vcevec.iter_mut().for_each(|vce| vce.amplitude(vol, value));
+    }
+  

@@ -125,4 +125,5 @@ impl msgf_inst::Inst for InstVa {
     fn pitch(&mut self, bend:i16, tune_coarse:u8, tune_fine:u8) {
         let pit:f32 = ((bend as f32)*MAX_PB_RANGE)/MIDI_MAX_PB_VAL
             + ((tune_coarse as f32)-MIDI_CENTER_VAL)*100.0 
-            + ((tune_fine as f32)-MIDI_CENTER_VAL)*100.0/MIDI_CENTE
+            + ((tune_fine as f32)-MIDI_CENTER_VAL)*100.0/MIDI_CENTER_VAL;
+        self.pit = pit

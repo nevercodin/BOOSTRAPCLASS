@@ -127,4 +127,6 @@ impl msgf_inst::Inst for InstVa {
             + ((tune_coarse as f32)-MIDI_CENTER_VAL)*100.0 
             + ((tune_fine as f32)-MIDI_CENTER_VAL)*100.0/MIDI_CENTER_VAL;
         self.pit = pit;
-        self.vcevec.iter_mut().for_ea
+        self.vcevec.iter_mut().for_each(|vce| vce.pitch(pit));
+    }
+    fn s

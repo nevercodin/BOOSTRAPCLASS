@@ -123,4 +123,4 @@ impl msgf_inst::Inst for InstVa {
         self.vcevec.iter_mut().for_each(|vce| vce.amplitude(vol, value));
     }
     fn pitch(&mut self, bend:i16, tune_coarse:u8, tune_fine:u8) {
-       
+        let pit:f32 = ((bend as 

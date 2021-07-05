@@ -129,4 +129,5 @@ impl msgf_inst::Inst for InstVa {
         self.pit = pit;
         self.vcevec.iter_mut().for_each(|vce| vce.pitch(pit));
     }
-    fn s
+    fn sustain(&mut self, _value: u8) {}
+    fn a

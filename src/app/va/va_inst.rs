@@ -131,4 +131,4 @@ impl msgf_inst::Inst for InstVa {
     }
     fn sustain(&mut self, _value: u8) {}
     fn all_sound_off(&mut self) {
-        self.
+        self.vcevec.iter_mut().for_each(|vce| vce.da

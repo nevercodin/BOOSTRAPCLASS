@@ -130,4 +130,5 @@ impl msgf_inst::Inst for InstVa {
         self.vcevec.iter_mut().for_each(|vce| vce.pitch(pit));
     }
     fn sustain(&mut self, _value: u8) {}
-    fn a
+    fn all_sound_off(&mut self) {
+        self.

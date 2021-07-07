@@ -134,4 +134,6 @@ impl msgf_inst::Inst for InstVa {
         self.vcevec.iter_mut().for_each(|vce| vce.damp());
     }
     fn set_prm(&mut self, prm_type: u8, value: u8) {
-        self.vcevec.iter_mut().for_each(|vce| vce.set_prm(pr
+        self.vcevec.iter_mut().for_each(|vce| vce.set_prm(prm_type, value));
+    }
+/*    fn release

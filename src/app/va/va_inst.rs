@@ -138,4 +138,4 @@ impl msgf_inst::Inst for InstVa {
     }
 /*    fn release_note(&mut self, nt: &va_voice::VoiceVa){
         let ntcmp = self.vcevec.iter_mut();
-       
+        for (i, vce) in ntcmp.enumer

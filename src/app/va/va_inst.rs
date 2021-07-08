@@ -136,4 +136,5 @@ impl msgf_inst::Inst for InstVa {
     fn set_prm(&mut self, prm_type: u8, value: u8) {
         self.vcevec.iter_mut().for_each(|vce| vce.set_prm(prm_type, value));
     }
-/*    fn release
+/*    fn release_note(&mut self, nt: &va_voice::VoiceVa){
+   

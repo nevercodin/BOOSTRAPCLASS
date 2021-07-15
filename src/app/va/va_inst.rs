@@ -140,4 +140,5 @@ impl msgf_inst::Inst for InstVa {
         let ntcmp = self.vcevec.iter_mut();
         for (i, vce) in ntcmp.enumerate() {
             if vce == nt {
-           
+                //  一つ消去したら、ループから抜ける
+             

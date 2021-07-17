@@ -141,4 +141,5 @@ impl msgf_inst::Inst for InstVa {
         for (i, vce) in ntcmp.enumerate() {
             if vce == nt {
                 //  一つ消去したら、ループから抜ける
-             
+                self.vcevec.remove(i);
+                br

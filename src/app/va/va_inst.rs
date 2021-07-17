@@ -145,4 +145,6 @@ impl msgf_inst::Inst for InstVa {
                 break;
             }
         }
-  
+    }*/
+    fn process(&mut self,
+     

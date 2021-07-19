@@ -147,4 +147,4 @@ impl msgf_inst::Inst for InstVa {
         }
     }*/
     fn process(&mut self,
-     
+      abuf_l: &mut msgf_afrm::AudioFram

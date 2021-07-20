@@ -149,4 +149,5 @@ impl msgf_inst::Inst for InstVa {
     fn process(&mut self,
       abuf_l: &mut msgf_afrm::AudioFrame,
       abuf_r: &mut msgf_afrm::AudioFrame,
-      in_number_fram
+      in_number_frames: usize) {
+        let sz = self.vce

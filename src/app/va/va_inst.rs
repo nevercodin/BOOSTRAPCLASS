@@ -150,4 +150,5 @@ impl msgf_inst::Inst for InstVa {
       abuf_l: &mut msgf_afrm::AudioFrame,
       abuf_r: &mut msgf_afrm::AudioFrame,
       in_number_frames: usize) {
-        let sz = self.vce
+        let sz = self.vcevec.len();
+        let mut ch_ended = 

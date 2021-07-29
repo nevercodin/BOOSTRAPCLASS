@@ -154,4 +154,6 @@ impl msgf_inst::Inst for InstVa {
         let mut ch_ended = vec![false; sz];
         self.vce_audio.set_sample_number(in_number_frames as usize);
         self.inst_audio.set_sample_number(in_number_frames as usize);
-        self.inst_aud
+        self.inst_audio.clr_abuf();
+
+        //  All voices get to

@@ -153,4 +153,4 @@ impl msgf_inst::Inst for InstVa {
         let sz = self.vcevec.len();
         let mut ch_ended = vec![false; sz];
         self.vce_audio.set_sample_number(in_number_frames as usize);
-        self.i
+        self.inst_audio.set_sample_number(in_nu

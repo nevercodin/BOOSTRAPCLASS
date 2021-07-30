@@ -156,4 +156,6 @@ impl msgf_inst::Inst for InstVa {
         self.inst_audio.set_sample_number(in_number_frames as usize);
         self.inst_audio.clr_abuf();
 
-        //  All voices get to
+        //  All voices get together 
+        for i in 0..sz {
+            i

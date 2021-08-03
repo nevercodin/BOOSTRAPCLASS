@@ -158,4 +158,5 @@ impl msgf_inst::Inst for InstVa {
 
         //  All voices get together 
         for i in 0..sz {
-            if let Some(nt) = self.vcevec.
+            if let Some(nt) = self.vcevec.get_mut(i) {
+                ch_ended[i]

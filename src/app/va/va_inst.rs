@@ -160,4 +160,4 @@ impl msgf_inst::Inst for InstVa {
         for i in 0..sz {
             if let Some(nt) = self.vcevec.get_mut(i) {
                 ch_ended[i] = nt.process(&mut self.vce_audio, in_number_frames);
-                s
+                self.inst_audio.mul_and_mix(&mut self.vce_audi

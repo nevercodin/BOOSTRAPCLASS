@@ -164,4 +164,5 @@ impl msgf_inst::Inst for InstVa {
             }
         }
 
-   
+        //  make audio stereo
+      

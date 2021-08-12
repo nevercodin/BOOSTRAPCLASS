@@ -166,4 +166,7 @@ impl msgf_inst::Inst for InstVa {
 
         //  make audio stereo
         abuf_l.mul_and_mix(&mut self.inst_audio, 1.0-self.pan);
-        abuf_r.mul_and_mix(&mut self.inst_audio, se
+        abuf_r.mul_and_mix(&mut self.inst_audio, self.pan);
+
+        //  with Effect
+ 

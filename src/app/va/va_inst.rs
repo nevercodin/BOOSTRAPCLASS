@@ -169,4 +169,4 @@ impl msgf_inst::Inst for InstVa {
         abuf_r.mul_and_mix(&mut self.inst_audio, self.pan);
 
         //  with Effect
- 
+        self.delay.process_

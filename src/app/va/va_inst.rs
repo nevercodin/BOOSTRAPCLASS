@@ -171,4 +171,5 @@ impl msgf_inst::Inst for InstVa {
         //  with Effect
         self.delay.process_as([abuf_l, abuf_r]);
 
-        for 
+        for i in 0..sz {
+            if ch_ended[i] {

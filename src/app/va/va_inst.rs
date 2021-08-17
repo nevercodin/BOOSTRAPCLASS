@@ -175,4 +175,6 @@ impl msgf_inst::Inst for InstVa {
             if ch_ended[i] {
                 //  一つ消去したら、ループから抜ける
                 self.vcevec.remove(i);
-           
+                break;
+            }
+      

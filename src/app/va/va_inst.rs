@@ -177,4 +177,10 @@ impl msgf_inst::Inst for InstVa {
                 self.vcevec.remove(i);
                 break;
             }
-      
+        }
+    }
+}
+
+impl InstVa {
+
+    pub fn 

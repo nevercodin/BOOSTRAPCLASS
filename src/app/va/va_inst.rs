@@ -183,4 +183,4 @@ impl msgf_inst::Inst for InstVa {
 
 impl InstVa {
 
-    pub fn 
+    pub fn new(mut inst_number: usize, vol: u8, pan: u8, e

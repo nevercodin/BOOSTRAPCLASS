@@ -183,4 +183,5 @@ impl msgf_inst::Inst for InstVa {
 
 impl InstVa {
 
-    pub fn new(mut inst_number: usize, vol: u8, pan: u8, e
+    pub fn new(mut inst_number: usize, vol: u8, pan: u8, exp: u8) -> Self {
+        let max_tone =

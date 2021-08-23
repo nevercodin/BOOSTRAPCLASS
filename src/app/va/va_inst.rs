@@ -185,4 +185,5 @@ impl InstVa {
 
     pub fn new(mut inst_number: usize, vol: u8, pan: u8, exp: u8) -> Self {
         let max_tone = va_prm::MAX_TONE_COUNT;
-        if inst_
+        if inst_number >= max_tone {
+            inst_number = 

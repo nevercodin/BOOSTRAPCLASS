@@ -188,4 +188,4 @@ impl InstVa {
         if inst_number >= max_tone {
             inst_number = max_tone-1;
         }
-        let prm 
+        let prm = Rc::new(Cell::new(va_prm::TONE_PR

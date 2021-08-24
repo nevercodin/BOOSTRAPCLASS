@@ -191,4 +191,5 @@ impl InstVa {
         let prm = Rc::new(Cell::new(va_prm::TONE_PRM[inst_number]));
         Self {
             vce_audio: msgf_afrm::AudioFrame::new(0,msgf_if::MAX_BUFFER_SIZE),
-            inst_audio: msgf_afrm::AudioFrame::new(0,msgf_if::MAX_BUFFE
+            inst_audio: msgf_afrm::AudioFrame::new(0,msgf_if::MAX_BUFFER_SIZE),
+            vcevec: 

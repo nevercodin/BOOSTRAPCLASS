@@ -208,4 +208,5 @@ impl InstVa {
         (value as f32)/128.0
     }
     fn search_note(&mut self, note_num: u8, sts: NoteStatus) -> Option<&mut va_voice::VoiceVa> {
-        le
+        let max_note = self.vcevec.len();
+  

@@ -199,3 +199,5 @@ impl InstVa {
             pit: 0.0,
             vol,
             pan: Self::calc_pan(pan),
+            exp,
+            inst_prm: prm,

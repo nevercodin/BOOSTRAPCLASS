@@ -207,4 +207,4 @@ impl InstVa {
         if value == 127 {value = 128;}
         (value as f32)/128.0
     }
-    fn search_note(&mut
+    fn search_note(&mut self, note_num: u8, sts: NoteStatus) -> Option<&

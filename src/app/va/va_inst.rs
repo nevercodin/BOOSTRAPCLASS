@@ -201,3 +201,6 @@ impl InstVa {
             pan: Self::calc_pan(pan),
             exp,
             inst_prm: prm,
+        }
+    }
+    fn calc_pan(mut valu

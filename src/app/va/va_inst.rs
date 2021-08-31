@@ -203,4 +203,5 @@ impl InstVa {
             inst_prm: prm,
         }
     }
-    fn calc_pan(mut valu
+    fn calc_pan(mut value:u8) -> f32 {
+        if value == 127 

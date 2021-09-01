@@ -209,4 +209,4 @@ impl InstVa {
     }
     fn search_note(&mut self, note_num: u8, sts: NoteStatus) -> Option<&mut va_voice::VoiceVa> {
         let max_note = self.vcevec.len();
-  
+        let mut return_num = max_not

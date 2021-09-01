@@ -213,4 +213,7 @@ impl InstVa {
         for i in 0..max_note {
             if self.vcevec[i].note_num() == note_num && sts == self.vcevec[i].status() {
                 return_num = i;
-              
+                break;
+            }
+        };
+      

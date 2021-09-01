@@ -211,4 +211,4 @@ impl InstVa {
         let max_note = self.vcevec.len();
         let mut return_num = max_note;
         for i in 0..max_note {
-            if self.vcevec[i].note_nu
+            if self.vcevec[i].note_num() == note_num && sts == sel

@@ -220,4 +220,6 @@ impl InstVa {
             None
         } else {
             Some(&mut self.vcevec[return_num])
-     
+        }
+    }
+}

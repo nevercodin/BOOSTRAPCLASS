@@ -54,3 +54,33 @@ pub const TONE_PRM: [SynthParameter; MAX_TONE_COUNT] = [
     // No.1
     SynthParameter {
         osc: OscParameter {
+            coarse_tune: 0,
+            fine_tune: 0.0,
+            lfo_depth: 0.0,
+            wv_type: WvType::Saw,
+        },
+        aeg: AegParameter {
+            attack_rate: 0.9,
+            decay_rate: 1.0,
+            sustain_level: 1.0,
+            release_rate: 0.2,
+        },
+        lfo: LfoParameter {
+            freq: 5.0,
+            wave: LfoWave::Tri,
+            direction: LfoDirection::LfoBoth,
+            fadein_time: 200,
+            delay_time: 200,
+        },
+        delay: DelayParameter {
+            l_time: 0.6,
+            r_time: 0.4,
+            att_ratio: 0.3,
+        },
+    },
+    // No.2
+    SynthParameter {
+        osc: OscParameter {
+            coarse_tune: 0,
+            fine_tune: 0.0,
+            lfo_depth: 0.02,

@@ -219,4 +219,5 @@ impl InstVa {
         if return_num == max_note {
             None
         } else {
-            Some(&
+            Some(&mut self.vcevec[return_num])
+     

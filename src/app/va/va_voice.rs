@@ -71,3 +71,46 @@ impl msgf_voice::Voice for VoiceVa {
     fn status(&self) -> NoteStatus {self.status}
     fn damp(&mut self) {
         self.status = NoteStatus::DuringDamp;
+        self.damp_counter = 0;
+    }
+    fn process(&mut self, abuf: &mut msgf_afrm::AudioFrame, in_number_frames: usize) -> bool {
+        if self.ended {return self.ended;}
+
+        //  Pitch Control
+        let cbuf_size = msgf_cfrm::CtrlFrame::get_cbuf_size(in_number_frames);
+        let lbuf = &mut msgf_cfrm::CtrlFrame::new(cbuf_size);
+
+        //  LFO
+        self.lfo.process_c(lbuf);
+
+        //  Oscillator
+        self.osc.process_ac(abuf, lbuf);
+
+        //  AEG
+        let aegbuf = &mut msgf_cfrm::CtrlFrame::new(cbuf_size);
+        self.aeg.process_c(aegbuf);
+
+        //  Volume
+        for i in 0..abuf.sample_number {
+            let aeg = aegbuf.ctrl_for_audio(i);
+            abuf.mul_rate(i, self.max_note_vol*self.emphasis_vol*aeg);
+        }
+        msgf_voice::manage_note_level(self, abuf, aegbuf)
+    }
+    fn set_prm(&mut self, prm_type: u8, value: u8) {
+        match prm_type {
+            0 => self.lfo.set_freq(value),
+            1 => self.lfo.set_wave(value),
+            _ => ()
+        }
+    }
+    fn put_lvl_check_buf(&mut self, lvl: f32) {self.lvl_check_buf.put_into_abuf(lvl);}
+    fn damp_counter(&self) -> u32 {self.damp_counter}
+    fn inc_damp_counter(&mut self) {self.damp_counter+=1;}
+    fn ended(&self) -> bool {self.ended}
+    fn set_ended(&mut self, which: bool) {self.ended = which;}
+}
+
+impl VoiceVa {
+    pub fn new(note:u8, vel:u8, pmd:f32, pit:f32, vol:u8, exp:u8,
+        inst_prm: Rc<Cell<va_prm::SynthParameter>>) -> Self {

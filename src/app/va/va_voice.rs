@@ -114,3 +114,25 @@ impl msgf_voice::Voice for VoiceVa {
 impl VoiceVa {
     pub fn new(note:u8, vel:u8, pmd:f32, pit:f32, vol:u8, exp:u8,
         inst_prm: Rc<Cell<va_prm::SynthParameter>>) -> Self {
+        let tprm: &va_prm::SynthParameter = &inst_prm.get();
+        Self {
+            note,
+            vel,
+            status: NoteStatus::DuringNoteOn,
+            damp_counter: 0,
+            lvl_check_buf: msgf_afrm::AudioFrame::new((msgf_if::SAMPLING_FREQ/100.0) as usize, msgf_if::MAX_BUFFER_SIZE),
+            osc: msgf_osc::Osc::new(&tprm.osc, note, pmd, pit),
+            aeg: msgf_aeg::Aeg::new(&tprm.aeg),
+            lfo: msgf_lfo::Lfo::new(&tprm.lfo),
+            max_note_vol: VoiceVa::calc_vol(vol, exp),
+            emphasis_vol: 1.0,
+            ended: false,
+        }
+    }
+    fn calc_vol(vol:u8, exp:u8) -> f32 {
+        let exp_sq = exp as f32;
+        let vol_sq = vol as f32;
+        let total_vol = 0.5f32.powf(4.0);    // 4bit margin
+        (total_vol*vol_sq*exp_sq)/16384.0
+    }
+}

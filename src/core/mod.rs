@@ -10,4 +10,5 @@
 pub mod msgf_afrm;
 pub mod msgf_cfrm;
 pub mod msgf_inst;
-pub m
+pub mod msgf_part;
+pub mod msgf_voice

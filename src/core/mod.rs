@@ -8,4 +8,6 @@
 //  https://opensource.org/licenses/mit-license.php
 //
 pub mod msgf_afrm;
-pub mod 
+pub mod msgf_cfrm;
+pub mod msgf_inst;
+pub m

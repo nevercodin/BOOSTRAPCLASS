@@ -11,4 +11,5 @@ pub mod msgf_afrm;
 pub mod msgf_cfrm;
 pub mod msgf_inst;
 pub mod msgf_part;
-pub mod msgf_voice
+pub mod msgf_voice;
+pub mod msgf_disp;

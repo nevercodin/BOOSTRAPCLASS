@@ -96,3 +96,32 @@ impl AudioFrame {
             let val = self.abuf[i];
             if max_val < val {
                 max_val = val;
+            }
+        }
+        max_val
+    }
+    pub fn mul_and_mix(&mut self, srcbuf: &AudioFrame, mul_value:f32) {
+        for i in 0..self.sample_number {
+            if let Some(src_dt) = srcbuf.get_from_abuf(i) {
+                let val: f32 = src_dt*mul_value;
+                self.add_val(i, val);
+            }
+        }
+    }
+    pub fn mix_and_check_no_sound(&mut self, srcbuf: &AudioFrame) -> bool {
+        let mut cnt: usize = 0;
+        for i in 0..self.sample_number {
+            if let Some(val) = srcbuf.get_from_abuf(i) {
+                self.add_val(i, val);
+                if val < msgf_if::DAMP_LIMIT_DEPTH {
+                    cnt += 1;
+                }
+            }
+        }
+        if cnt >= self.sample_number {
+            true
+        } else {
+            false
+        }
+    }
+}

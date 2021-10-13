@@ -3,4 +3,5 @@
 //	Musical Sound Generator Framework
 //      Control Frame Class
 //
-//  Created by Hasebe Masahiko 
+//  Created by Hasebe Masahiko on 2021/10/24.
+//  Copyright (

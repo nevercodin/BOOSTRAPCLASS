@@ -1,3 +1,4 @@
 //
 //  msgf_cfrm.rs
-//	Musical Sound Generat
+//	Musical Sound Generator Framework
+//      Control Frame Cl

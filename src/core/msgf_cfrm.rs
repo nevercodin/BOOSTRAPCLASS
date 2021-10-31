@@ -14,4 +14,5 @@ use crate::msgf_if;
 //		Definition
 //---------------------------------------------------------
 pub struct CtrlFrame {
- 
+    cbuf: Vec<f32>,
+    pub sample_numb

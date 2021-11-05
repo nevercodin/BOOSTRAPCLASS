@@ -21,4 +21,6 @@ pub struct CtrlFrame {
 //		Implements
 //---------------------------------------------------------
 impl CtrlFrame {
-    pub fn new(sample_number: 
+    pub fn new(sample_number: usize) -> Self {
+        Self {
+       

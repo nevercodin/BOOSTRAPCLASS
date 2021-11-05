@@ -17,4 +17,5 @@ pub struct CtrlFrame {
     cbuf: Vec<f32>,
     pub sample_number: usize,
 }
-//-------------------------
+//---------------------------------------------------------
+//		Implements

@@ -20,4 +20,5 @@ pub struct CtrlFrame {
 //---------------------------------------------------------
 //		Implements
 //---------------------------------------------------------
-impl CtrlFram
+impl CtrlFrame {
+    pub fn new(sample_number: 

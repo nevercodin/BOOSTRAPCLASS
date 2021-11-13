@@ -23,4 +23,4 @@ pub struct CtrlFrame {
 impl CtrlFrame {
     pub fn new(sample_number: usize) -> Self {
         Self {
-       
+            cbuf: vec![0.0; sample_number

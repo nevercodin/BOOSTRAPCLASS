@@ -25,4 +25,6 @@ impl CtrlFrame {
         Self {
             cbuf: vec![0.0; sample_number],
             sample_number,
-    
+        }
+    }
+    pub fn get_cbuf

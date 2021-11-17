@@ -27,4 +27,5 @@ impl CtrlFrame {
             sample_number,
         }
     }
-    pub fn get_cbuf_size(in_number_frames: us
+    pub fn get_cbuf_size(in_number_frames: usize) -> usize {
+        in_numbe

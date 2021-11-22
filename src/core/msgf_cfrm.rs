@@ -30,4 +30,6 @@ impl CtrlFrame {
     pub fn get_cbuf_size(in_number_frames: usize) -> usize {
         in_number_frames/msgf_if::AUDIO_FRAME_PER_CONTROL
     }
-    pub fn set_cbuf(&mut self, num: usize, va
+    pub fn set_cbuf(&mut self, num: usize, val: f32) {
+        self.cbuf[num] = val;
+    }

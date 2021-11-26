@@ -33,4 +33,5 @@ impl CtrlFrame {
     pub fn set_cbuf(&mut self, num: usize, val: f32) {
         self.cbuf[num] = val;
     }
-    pub fn _add_cbuf(&mut self,
+    pub fn _add_cbuf(&mut self, num: usize, val: f32) {
+        self.cbuf[num

@@ -38,4 +38,5 @@ impl CtrlFrame {
     }
     pub fn _mul_cbuf(&mut self, num: usize, rate: f32) {
         self.cbuf[num] *= rate;
-  
+    }
+    pub fn _get_cbuf(&self, num: 

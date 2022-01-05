@@ -41,4 +41,5 @@ impl CtrlFrame {
     }
     pub fn _get_cbuf(&self, num: usize) -> f32 { self.cbuf[num]}
     pub fn ctrl_for_audio(&self, num: usize) -> f32 { // for Audio Buffer
-        self.cbuf[num/msg
+        self.cbuf[num/msgf_if::AUDIO_FRAME_PER_CONTROL]
+    }

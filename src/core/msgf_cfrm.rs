@@ -45,4 +45,6 @@ impl CtrlFrame {
     }
     pub fn get_max_level(&self) -> f32 {
         let mut max_val: f32 = 0.0;
-        for i in 0..self.sample_number 
+        for i in 0..self.sample_number {
+            let val = self.cbuf[i];
+  

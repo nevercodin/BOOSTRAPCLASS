@@ -43,3 +43,4 @@ impl CtrlFrame {
     pub fn ctrl_for_audio(&self, num: usize) -> f32 { // for Audio Buffer
         self.cbuf[num/msgf_if::AUDIO_FRAME_PER_CONTROL]
     }
+    pub fn get_max_level(&self) -> 

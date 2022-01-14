@@ -48,4 +48,5 @@ impl CtrlFrame {
         for i in 0..self.sample_number {
             let val = self.cbuf[i];
             if max_val < val {
- 
+                max_val = val;
+  

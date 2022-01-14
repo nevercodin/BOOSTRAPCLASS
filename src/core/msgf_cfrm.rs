@@ -49,4 +49,6 @@ impl CtrlFrame {
             let val = self.cbuf[i];
             if max_val < val {
                 max_val = val;
-  
+            }
+        }
+       

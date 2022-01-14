@@ -1,3 +1,4 @@
 //
 //  msgf_disp.rs
-//	Mus
+//	Musical Sound Generator Framework
+//  

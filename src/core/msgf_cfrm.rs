@@ -51,4 +51,6 @@ impl CtrlFrame {
                 max_val = val;
             }
         }
-       
+        max_val
+    }
+}

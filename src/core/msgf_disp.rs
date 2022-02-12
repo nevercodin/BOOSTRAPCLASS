@@ -3,4 +3,4 @@
 //	Musical Sound Generator Framework
 //      Display
 //
-//  Created by H
+//  Created by Hasebe Masahiko on 2022/08/21

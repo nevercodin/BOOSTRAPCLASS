@@ -5,4 +5,5 @@
 //
 //  Created by Hasebe Masahiko on 2022/08/21.
 //  Copyright (c) 2022 Hasebe Masahiko.
-//  Releas
+//  Released under the MIT license
+//  https://ope

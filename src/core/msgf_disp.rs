@@ -6,4 +6,7 @@
 //  Created by Hasebe Masahiko on 2022/08/21.
 //  Copyright (c) 2022 Hasebe Masahiko.
 //  Released under the MIT license
-//  https://ope
+//  https://opensource.org/licenses/mit-license.php
+//
+
+//--

@@ -13,4 +13,4 @@
 //		Definition
 //---------------------------------------------------------
 pub trait MsgfDisplay {
-  
+    fn print_str(&self, string: &str) {p

@@ -13,4 +13,5 @@
 //		Definition
 //---------------------------------------------------------
 pub trait MsgfDisplay {
-    fn print_str(&self, string: &str) {p
+    fn print_str(&self, string: &str) {println!("{}",string)}
+    fn print

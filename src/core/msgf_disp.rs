@@ -14,4 +14,5 @@
 //---------------------------------------------------------
 pub trait MsgfDisplay {
     fn print_str(&self, string: &str) {println!("{}",string)}
-    fn print_prm<T: std::fmt::Display>(&self, string: &str,
+    fn print_prm<T: std::fmt::Display>(&self, string: &str, prm: T) {
+        let mut all

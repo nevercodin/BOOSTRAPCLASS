@@ -38,3 +38,33 @@ pub struct Part {
 
     //	Composite Object
     inst: Box<dyn msgf_inst::Inst>,
+}
+//---------------------------------------------------------
+//		Implements
+//---------------------------------------------------------
+impl MsgfDisplay for Part {}
+impl Part {
+    pub fn new() -> Self {
+        Self {
+            cc0_msb: 0,
+            cc1_modulation_wheel: 0,
+            cc5_portamento_time: 0,
+            cc7_volume: 100,
+            cc10_pan: 64,
+            cc11_expression: 127,
+            cc12_note_shift: 64,
+            cc13_tune: 64,
+            cc32_lsb: 0,
+            cc64_sustain: 0,
+            cc65_portamento: 0,
+            cc66_sostenuto: 0,
+            cc91_revsend: 127,
+            _cc126_mono: 1,
+            program_number: 0,
+            pitch_bend_value: 0,
+            cc16_31_change_vprm: [0; 16],
+            inst: app::get_inst(0,100,64,127), //pgn,vol,pan,exp,
+        }
+    }
+    pub fn note_off(&mut self, dt2: u8, dt3: u8) {
+        self.inst.note_off(dt2, dt3)

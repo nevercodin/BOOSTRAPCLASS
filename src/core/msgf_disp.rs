@@ -19,4 +19,5 @@ pub trait MsgfDisplay {
         let prm_str: &str = &prm.to_string();   //  to_string で、String型、&を付けると &str型
         all_str += prm_str;                     // '+' は String + &str のみ可能
         println!("{}", all_str)
-  
+    }
+}

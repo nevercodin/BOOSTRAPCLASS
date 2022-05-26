@@ -109,3 +109,49 @@ impl Part {
             }
             32 => self.cc32_lsb = value,
             64 => {
+                self.cc64_sustain = value;
+                self.inst.sustain(value);
+            }
+            65 => self.cc65_portamento = value,
+            66 => self.cc66_sostenuto = value,
+            91 => self.cc91_revsend = value,
+            120 => {
+                if value == 0 {
+                    self.inst.all_sound_off();
+                }
+            }
+            16..=31 => {
+                let vprm_num: u8 = controller-16;
+                self.cc16_31_change_vprm[vprm_num as usize] = value;
+                self.inst.set_prm(vprm_num, value);
+            }
+            _ => {}
+        };
+        //self.print_prm("Control Change: ", controller);
+    }
+    pub fn program_change(&mut self, dt2: u8) {
+        self.program_number = dt2;
+        let vol = self.cc7_volume;
+        let pan = self.cc10_pan;
+        let exp = self.cc11_expression;
+        let pb = self.pitch_bend_value;
+        let ns = self.cc12_note_shift;
+        let tn = self.cc13_tune;
+        self.print_prm("Program Change: ", dt2);
+        self.inst = app::get_inst(self.program_number as usize,vol,pan,exp); //pgn,vol,pan,exp,
+        self.inst.pitch(pb, ns, tn);
+    }
+    pub fn pitch_bend(&mut self, bend: i16) {
+        self.pitch_bend_value = bend;
+        let ns = self.cc12_note_shift;
+        let tn = self.cc13_tune;
+        self.print_prm("Pitch Bend: ",bend);
+        self.inst.pitch(bend, ns, tn);
+    }
+    pub fn process(&mut self,
+                   abuf_l: &mut msgf_afrm::AudioFrame,
+                   abuf_r: &mut msgf_afrm::AudioFrame,
+                   abuf_eff_l: &mut msgf_afrm::AudioFrame,
+                   abuf_eff_r: &mut msgf_afrm::AudioFrame,
+                   in_number_frames: usize) {
+        abuf_l.clr_abuf();

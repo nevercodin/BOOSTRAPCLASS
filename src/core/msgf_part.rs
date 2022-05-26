@@ -68,3 +68,44 @@ impl Part {
     }
     pub fn note_off(&mut self, dt2: u8, dt3: u8) {
         self.inst.note_off(dt2, dt3)
+    }
+    pub fn note_on(&mut self, dt2: u8, dt3: u8) {
+        self.inst.note_on(dt2, dt3)
+    }
+    pub fn per_note_after(&mut self, dt2: u8, dt3: u8) {
+        self.inst.per_note_after(dt2, dt3)
+    }
+    pub fn control_change(&mut self, controller: u8, value: u8) {
+        match controller {
+            0 => self.cc0_msb = value,
+            1 => {
+                self.cc1_modulation_wheel = value;
+                self.inst.modulation(value);
+            }
+            5 => self.cc5_portamento_time = value,
+            7 => {
+                self.cc7_volume = value;
+                self.inst.volume(value);
+            }
+            10 => {
+                self.cc10_pan = value;
+                self.inst.pan(value);
+            }
+            11 => {
+                self.cc11_expression = value;
+                self.inst.expression(value);
+            }
+            12 => {
+                self.cc12_note_shift = value;
+                let pb = self.pitch_bend_value;
+                let tn = self.cc13_tune;
+                self.inst.pitch(pb, value, tn);
+            }
+            13 => {
+                self.cc13_tune = value;
+                let pb = self.pitch_bend_value;
+                let ns = self.cc12_note_shift;
+                self.inst.pitch(pb, ns, value);
+            }
+            32 => self.cc32_lsb = value,
+            64 => {

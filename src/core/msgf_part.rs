@@ -155,3 +155,12 @@ impl Part {
                    abuf_eff_r: &mut msgf_afrm::AudioFrame,
                    in_number_frames: usize) {
         abuf_l.clr_abuf();
+        abuf_r.clr_abuf();
+        self.inst.process(abuf_l, abuf_r, in_number_frames);
+        abuf_eff_l.clr_abuf();
+        abuf_eff_r.clr_abuf();
+        let send: f32 = (self.cc91_revsend as f32)/128.0;
+        abuf_eff_l.mul_and_mix(abuf_l, send);    //  effect send L
+        abuf_eff_r.mul_and_mix(abuf_r, send);    //  effect send R
+    }
+}

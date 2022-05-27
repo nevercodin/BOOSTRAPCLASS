@@ -61,3 +61,21 @@ pub fn manage_note_level<T: Voice+MsgfDisplay>(t: &mut T,
             t.print_str("Damped!");
             t.damp();
         }
+    } else {    //	Damp
+        for snum in 0..abuf.sample_number {
+            let mut rate: f32 = 0.0;
+            if t.damp_counter() <= DAMP_TIME {
+                let cntdwn = DAMP_TIME - t.damp_counter();
+                rate = (cntdwn as f32)/(DAMP_TIME as f32);
+                rate *= rate;
+            }
+            abuf.mul_rate(snum, rate);
+            t.inc_damp_counter();
+            if t.damp_counter() > DAMP_TIME {
+                t.set_ended(true);
+                break;
+            }
+        }
+    }
+    t.ended()
+}

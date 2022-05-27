@@ -34,3 +34,30 @@ pub trait Voice {
     fn change_pmd(&mut self, value: f32);
     fn amplitude(&mut self, volume: u8, expression: u8);
     fn pitch(&mut self, pitch:f32);
+    fn status(&self) -> NoteStatus;
+    fn process(&mut self, abuf: &mut msgf_afrm::AudioFrame, in_number_frames: usize) -> bool;
+    fn note_num(&self) -> u8;
+    fn velocity(&self) -> u8;
+    fn set_prm(&mut self, prm_type: u8, value: u8);
+
+    //  Setter/Getter
+    fn put_lvl_check_buf(&mut self, lvl: f32);
+    fn damp_counter(&self) -> u32;
+    fn inc_damp_counter(&mut self);
+    fn ended(&self) -> bool;
+    fn set_ended(&mut self, which: bool);
+}
+//---------------------------------------------------------
+//		Trait Bound
+//---------------------------------------------------------
+pub fn manage_note_level<T: Voice+MsgfDisplay>(t: &mut T, 
+    abuf:   &mut msgf_afrm::AudioFrame,
+    aegbuf: &mut msgf_cfrm::CtrlFrame) -> bool {
+    if t.status() != NoteStatus::DuringDamp {
+        //	Check Level
+        let level = aegbuf.get_max_level();
+        t.put_lvl_check_buf(level);
+        if msgf_if::DAMP_LIMIT_DEPTH > level {
+            t.print_str("Damped!");
+            t.damp();
+        }

@@ -1,2 +1,5 @@
 //
-//  engine/mod.r
+//  engine/mod.rs
+//	Musical Sound Generator Framework
+//
+//  Crea

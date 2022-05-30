@@ -2,4 +2,4 @@
 //  engine/mod.rs
 //	Musical Sound Generator Framework
 //
-//  Crea
+//  Created by Hasebe Masahiko on 2

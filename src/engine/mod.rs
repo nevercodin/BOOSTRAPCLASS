@@ -11,4 +11,6 @@ pub mod msgf_gen;
 pub mod msgf_additive;
 pub mod msgf_aeg;
 pub mod msgf_osc;
-pub mod msgf_lfo
+pub mod msgf_lfo;
+pub mod msgf_delay;
+pub mod msgf_sd_del

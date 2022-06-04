@@ -15,4 +15,4 @@ pub mod msgf_lfo;
 pub mod msgf_delay;
 pub mod msgf_sd_delay;
 pub mod msgf_biquad;
-pub mod msgf_vocal
+pub mod msgf_vocal;

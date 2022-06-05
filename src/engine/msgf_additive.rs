@@ -74,3 +74,38 @@ impl Additive {
         self.real_prtm_spd = self.prms_variable.prtm_spd;//(diff_note as f32).powf(0.25);
     }
     pub fn change_pitch(&mut self, cnt_pitch:f32) {
+        self.cnt_ratio = Osc::calc_cnt_pitch(cnt_pitch);
+    }
+    pub fn change_f1(&mut self, f1:f32) {self.f1 = f1;}
+    pub fn change_f2(&mut self, f2:f32) {self.f2 = f2;}
+    fn formant_filter(&self, pitch:f32) -> [f32; 33] {
+        //  各倍音に一番近いフォルマントを探し、そのフォルマントから
+        //  各倍音のレベルを 0.5..1.5 の間で生成する
+        const Q_VAL: f32 = 150.0;
+        const F4: f32 = 3500.0;
+        //  フォルマント周波数の微修正（基本ピッチによって少し高めにする）
+        let f1: f32 = if pitch > 400.0 {self.f1 + (pitch-400.0)*0.5} else {self.f1};
+        let f2: f32 = if pitch > 400.0 {self.f2 + (pitch-400.0)*0.5} else {self.f2};
+        let f3: f32 = if f2 > 1900.0 {f2+600.0} else {2500.0};
+        //  各倍音にかける値
+        let mut flt: [f32; 33] = [0.0; 33];
+        // Gaussian function = exp(-x^2/(2*sigma^2))
+        //  上記関数の出力は 0-1 なので、これを 0.5-2.0 に変える
+        let gaussian_func = |x:f32| {(-(x*x)/(2.0*Q_VAL*Q_VAL)).exp()*1.5 + 0.5};
+        for i in 0..33 {
+            let otp = pitch*(i as f32);
+            if      otp < self.f1               {flt[i]=gaussian_func(otp-f1);}
+            else if otp < (self.f1+self.f2)/2.0 {flt[i]=gaussian_func(otp-f1);}//f1とf2の間でf1寄り
+            else if otp < self.f2               {flt[i]=gaussian_func(otp-f2);}
+            else if otp < (self.f2+f3)/2.0      {flt[i]=gaussian_func(otp-f2);}
+            else if otp < f3                    {flt[i]=gaussian_func(otp-f3);}
+            else if otp < (f3+F4)/2.0           {flt[i]=gaussian_func(otp-f3);}
+            else                                {flt[i]=gaussian_func(otp-F4);}
+        }
+        flt
+    }
+    fn scaling_filter(pitch:f32) -> [f32; 33] {
+        // 音程が上がるにつれ、倍音が減る割合を設定する
+        const CENTER_FREQ: f32 = 200.0; //[freq]
+        const REDUCED_RATE: f32 = 1.2;  // 0.5..2.0
+        let b: f32 = pitch/CENTER_FREQ;

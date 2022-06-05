@@ -109,3 +109,36 @@ impl Additive {
         const CENTER_FREQ: f32 = 200.0; //[freq]
         const REDUCED_RATE: f32 = 1.2;  // 0.5..2.0
         let b: f32 = pitch/CENTER_FREQ;
+        let a: f32 = (CENTER_FREQ-pitch)*REDUCED_RATE/1000.0;
+        let mut flt: [f32; 33] = [0.0; 33];
+        for x in 0..33 {
+            flt[x] = a*(x as f32) + b;
+            if flt[x] < 0.0 {flt[x] = 0.0;}
+        }
+        flt
+    }
+    fn generate_filter(&self) -> [f32; 33] {
+        let fflt = self.formant_filter(self.base_pitch);
+        let mut sflt = Additive::scaling_filter(self.base_pitch);
+        for x in 0..33 {
+            sflt[x] *= fflt[x];
+        }
+        sflt
+    }
+    fn wave_func(&self, phase: f32, ot_num: usize, filter: [f32;33]) -> f32 {
+        let mut pls: f32 = 0.0;
+        const PHASE_STREWING: f32 = 0.01;
+        for j in 0..ot_num {
+            pls += msgf_gen::PULSE0_1[j]
+                   *filter[j]
+                   *Osc::pseudo_sine(phase*(j as f32)+PHASE_STREWING); 
+        }
+        pls*4.0 // 音量嵩上げ
+    }
+    fn pitch_interporation(&mut self, diff: f32) {
+        //  Pitch Operation for Portamento
+        self.base_pitch += diff*self.real_prtm_spd;
+        if self.target_pitch*1.01 > self.base_pitch &&
+          self.target_pitch*0.99 < self.base_pitch {
+            self.base_pitch = self.target_pitch;
+        }

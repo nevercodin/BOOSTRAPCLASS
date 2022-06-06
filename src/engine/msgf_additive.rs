@@ -142,3 +142,28 @@ impl Additive {
           self.target_pitch*0.99 < self.base_pitch {
             self.base_pitch = self.target_pitch;
         }
+    }
+}
+impl Engine for Additive {
+    fn process_ac(&mut self, abuf: &mut msgf_afrm::AudioFrame, lbuf: &mut msgf_cfrm::CtrlFrame) {
+        let lvl_variable = self.prms_variable.magnitude;
+        if self.target_pitch != self.base_pitch {
+            //  Portameneto Operation
+            let diff = self.target_pitch - self.base_pitch;
+            self.pitch_interporation(diff);
+        }
+        let delta_phase = self.base_pitch*self.cnt_ratio/msgf_if::SAMPLING_FREQ;
+        let mut phase = self.next_phase;
+        let ot: usize = (msgf_gen::ABORT_FREQUENCY/self.base_pitch) as usize;
+        let filter: [f32; 33] = self.generate_filter();
+        let max_overtone = if ot <= 32 {ot} else {32};
+        for i in 0..abuf.sample_number {
+            let sample = self.wave_func(phase, max_overtone, filter);
+            abuf.set_val(i, sample*lvl_variable);
+            let magnitude = lbuf.ctrl_for_audio(i)*self.pmd;
+            phase += delta_phase*(2.0_f32.powf(magnitude));
+            while phase > 1.0 { phase -= 1.0 }
+        }
+        self.next_phase = phase;
+    }
+}

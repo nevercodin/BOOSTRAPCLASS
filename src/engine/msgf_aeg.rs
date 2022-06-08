@@ -93,3 +93,35 @@ impl Aeg {
             self.interpolate_value = 0.0;
         }
     }
+    pub fn move_to_release(&mut self) {
+        if self.state == EgState::Decay &&
+            (self.prms.release_rate < self.prms.decay_rate) {
+            //  Decay 中かつ DR が RR より速ければ、Decay が終わるまで release は保留
+            self.release_rsv = true;
+        }
+        else {
+            self.src_value = self.crnt_value;
+            self.tgt_value = 0.0;
+            self.crnt_rate = self.prms.release_rate;
+            self.state = EgState::Release;
+            self.interpolate_value = 0.0;
+        }
+    }
+    fn move_to_egdone(&mut self) {
+        self.src_value = 0.0;
+        self.tgt_value = 0.0;
+        self.crnt_rate = 0.0;
+        self.state = EgState::EgDone;
+        self.interpolate_value = 0.0;
+    }
+    fn calc_delta_eg(&mut self, eg_diff: f32) -> f32 {
+        // 0.0 -> 1.0 の動きを作り出し、interpolate_value に格納
+        // その値を eg_diff にかけて、現在の到達値を返す
+        const STEP_BEFORE_REACHED: f32 = 0.001;
+        let mut intplt = self.interpolate_value;
+        if intplt > 0.98 { // この数値で到達タイミングを調整
+            intplt += STEP_BEFORE_REACHED;
+            if intplt > 1.0 {intplt = 1.0;}
+        } else {
+            intplt += (1.0-intplt)*(self.crnt_rate);
+        }

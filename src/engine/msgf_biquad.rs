@@ -25,3 +25,40 @@ pub struct BiquadParameter {
 //		Definition
 //---------------------------------------------------------
 pub struct Biquad {
+    a1: f32,
+    a2: f32,
+    b0: f32,
+    b1: f32,
+    b2: f32,
+    x_z1: f32,
+    x_z2: f32,
+    y_z1: f32,
+    y_z2: f32,
+}
+//---------------------------------------------------------
+//		Implements
+//---------------------------------------------------------
+impl Biquad {
+    pub fn new() -> Biquad {
+        Self {
+            a1: 0.0,
+            a2: 0.0,
+            b0: 1.0,
+            b1: 0.0,
+            b2: 0.0,
+            x_z1: 0.0,
+            x_z2: 0.0,
+            y_z1: 0.0,
+            y_z2: 0.0,
+        }
+    }
+    fn calc_analog_cutoff(&self, fd: f32) -> f32 {
+        // cutoff : fd/fs = digital cutoff/sampling freq
+        (msgf_if::PI*fd/msgf_if::SAMPLING_FREQ).tan()/(2.0*msgf_if::PI)
+    }
+    pub fn set_thru(&mut self) {
+        self.a1 = 0.0;
+        self.a2 = 0.0;
+        self.b0 = 1.0;
+        self.b1 = 0.0;
+        self.b2 = 0.0;

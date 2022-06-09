@@ -159,3 +159,13 @@ impl Engine for Aeg {
                     }
                 },
                 _ => {},
+            }
+            //  AEG の動きでノイズが出ないように LPF をかける
+            let lpf_coef = 0.2;
+            eg_crnt = (1.0-lpf_coef)*self.last_value + lpf_coef*eg_crnt;
+            self.last_value = eg_crnt;
+            cbuf.set_cbuf(i, eg_crnt);
+            self.crnt_value = eg_crnt;
+        }
+    }
+}

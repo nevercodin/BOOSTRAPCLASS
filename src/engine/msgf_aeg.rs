@@ -125,3 +125,37 @@ impl Aeg {
         } else {
             intplt += (1.0-intplt)*(self.crnt_rate);
         }
+        self.interpolate_value = intplt;
+        eg_diff*intplt + self.src_value
+    }
+}
+impl Engine for Aeg {
+    fn process_c(&mut self, cbuf: &mut msgf_cfrm::CtrlFrame) {
+        let eg_diff: f32 = self.tgt_value - self.src_value;
+        for i in 0..cbuf.sample_number {
+            let mut eg_crnt: f32 = self.tgt_value;
+            match self.state {
+                EgState::Attack => {
+                    eg_crnt = self.calc_delta_eg(eg_diff);
+                    if eg_diff > 0.0 && self.tgt_value <= eg_crnt {
+                        self.move_to_decay(self.tgt_value);
+                    }
+                },
+                EgState::Decay => {
+                    eg_crnt = self.calc_delta_eg(eg_diff);
+                    if eg_diff < 0.0 && self.tgt_value >= eg_crnt {
+                        if self.release_rsv {
+                            self.state = EgState::Sustain;
+                            self.move_to_release();
+                        } else {
+                            self.move_to_sustain(self.tgt_value);
+                        }
+                    }
+                },
+                EgState::Release => {
+                    eg_crnt = self.calc_delta_eg(eg_diff);
+                    if eg_diff < 0.0 && self.tgt_value >= eg_crnt {
+                        self.move_to_egdone();
+                    }
+                },
+                _ => {},

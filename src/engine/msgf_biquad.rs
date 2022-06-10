@@ -100,3 +100,7 @@ impl Engine for Biquad {
         for i in 0..abuf.sample_number {
             if let Some(x) = abuf.get_from_abuf(i){
                 abuf.set_val(i, self.core_job(x));
+            }
+        }
+    }
+}

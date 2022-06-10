@@ -62,3 +62,41 @@ impl Biquad {
         self.b0 = 1.0;
         self.b1 = 0.0;
         self.b2 = 0.0;
+    }
+    pub fn set_lpf(&mut self, cutoff:f32, reso:f32) {
+        let fa = self.calc_analog_cutoff(cutoff);
+        let sqfc = fa * fa;
+        let sqpi = msgf_if::PI * msgf_if::PI;
+        let a0 = 1.0 + (2.0 * msgf_if::PI * fa)/reso + 4.0 * sqpi * sqfc;
+        self.a1 = (8.0 * sqpi * sqfc - 2.0)/a0;
+        self.a2 = (1.0 - 2.0 * msgf_if::PI * fa/reso + 4.0 * sqpi * sqfc)/a0;
+        self.b0 = (4.0 * sqpi * sqfc)/a0;
+        self.b1 = (8.0 * sqpi * sqfc)/a0;
+        self.b2 = self.b0;
+    }
+    pub fn set_bpf(&mut self, cutoff:f32, reso:f32) {
+        let fa = self.calc_analog_cutoff(cutoff);
+        let sqfc = fa * fa;
+        let sqpi = msgf_if::PI * msgf_if::PI;
+        let a0 = 1.0 + (2.0 * msgf_if::PI * fa)/reso + 4.0 * sqpi * sqfc;
+        self.a1 = (8.0 * sqpi * sqfc - 2.0)/a0;
+        self.a2 = (1.0 - (2.0 * msgf_if::PI * fa/reso) + 4.0 * sqpi * sqfc)/a0;
+        self.b0 = (2.0 * msgf_if::PI * fa/reso)/a0;
+        self.b1 = 0.0;
+        self.b2 = -self.b0;
+    }
+    fn core_job(&mut self, input: f32) -> f32 {
+		let mut output: f32 = self.b0*input + self.b1*self.x_z1 + self.b2*self.x_z2;
+		output += - self.a1*self.y_z1 - self.a2*self.y_z2;
+        self.x_z2 = self.x_z1;
+        self.x_z1 = input;
+        self.y_z2 = self.y_z1;
+        self.y_z1 = output;
+        output
+    }
+}
+impl Engine for Biquad {
+    fn process_a(&mut self, abuf: &mut msgf_afrm::AudioFrame) {
+        for i in 0..abuf.sample_number {
+            if let Some(x) = abuf.get_from_abuf(i){
+                abuf.set_val(i, self.core_job(x));

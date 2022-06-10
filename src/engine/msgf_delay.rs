@@ -1,4 +1,6 @@
 //
 //  msgf_delay.rs
 //	Musical Sound Generator Framework
-//      D
+//      Delay Class
+//
+//  Created b

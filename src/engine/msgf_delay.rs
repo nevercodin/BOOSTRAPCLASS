@@ -1,3 +1,4 @@
 //
 //  msgf_delay.rs
-//	Musical
+//	Musical Sound Generator Framework
+//      D

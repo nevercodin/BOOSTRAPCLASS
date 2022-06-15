@@ -17,4 +17,5 @@ use crate::engine::msgf_gen::*;
 //---------------------------------------------------------
 #[derive(Copy, Clone)]
 pub struct DelayParameter {
-    pub l_time: f3
+    pub l_time: f32,    //  0.0 - 1.0 [sec]
+    pub r_time: f3

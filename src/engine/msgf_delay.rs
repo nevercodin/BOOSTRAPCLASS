@@ -19,4 +19,6 @@ use crate::engine::msgf_gen::*;
 pub struct DelayParameter {
     pub l_time: f32,    //  0.0 - 1.0 [sec]
     pub r_time: f32,    //  0.0 - 1.0 [sec]
-    pub att_ratio: f
+    pub att_ratio: f32,     //  attenuation
+}
+//------------

@@ -21,4 +21,4 @@ pub struct DelayParameter {
     pub r_time: f32,    //  0.0 - 1.0 [sec]
     pub att_ratio: f32,     //  attenuation
 }
-//------------
+//--------------------------------------------

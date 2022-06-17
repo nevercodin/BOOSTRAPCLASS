@@ -22,4 +22,5 @@ pub struct DelayParameter {
     pub att_ratio: f32,     //  attenuation
 }
 //---------------------------------------------------------
-//		Definitio
+//		Definition
+//----------------------------

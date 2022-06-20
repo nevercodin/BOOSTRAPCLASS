@@ -28,4 +28,6 @@ pub struct Delay {
     att_ratio: f32,
     delay_buffer: [msgf_afrm::AudioFrame; 2],
     rd_ptr: [usize;2],
-    wr_ptr: [
+    wr_ptr: [usize;2],
+}
+//-------------------------

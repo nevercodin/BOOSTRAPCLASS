@@ -25,4 +25,5 @@ pub struct DelayParameter {
 //		Definition
 //---------------------------------------------------------
 pub struct Delay {
-    att_ratio:
+    att_ratio: f32,
+    delay_buffer: [msgf_afrm::Au

@@ -35,4 +35,4 @@ pub struct Delay {
 //---------------------------------------------------------
 impl Delay {
 
-    pub fn ne
+    pub fn new(ref_prms: &DelayParameter) -

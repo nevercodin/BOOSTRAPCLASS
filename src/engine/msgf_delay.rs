@@ -35,4 +35,6 @@ pub struct Delay {
 //---------------------------------------------------------
 impl Delay {
 
-    pub fn new(ref_prms: &DelayParameter) -
+    pub fn new(ref_prms: &DelayParameter) -> Self {
+        Delay {
+    

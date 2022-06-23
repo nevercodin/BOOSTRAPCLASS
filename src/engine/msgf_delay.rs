@@ -38,4 +38,5 @@ impl Delay {
     pub fn new(ref_prms: &DelayParameter) -> Self {
         Delay {
             att_ratio: ref_prms.att_ratio,
-            delay_buf
+            delay_buffer: 
+                [msgf_a

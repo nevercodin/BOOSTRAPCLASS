@@ -37,4 +37,4 @@ impl Delay {
 
     pub fn new(ref_prms: &DelayParameter) -> Self {
         Delay {
-    
+            att_ratio: ref_prms

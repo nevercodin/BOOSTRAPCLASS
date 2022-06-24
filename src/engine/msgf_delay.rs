@@ -39,4 +39,5 @@ impl Delay {
         Delay {
             att_ratio: ref_prms.att_ratio,
             delay_buffer: 
-                [msgf_a
+                [msgf_afrm::AudioFrame::new(44100,44100),
+ 

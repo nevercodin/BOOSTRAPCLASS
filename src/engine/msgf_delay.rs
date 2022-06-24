@@ -41,4 +41,5 @@ impl Delay {
             delay_buffer: 
                 [msgf_afrm::AudioFrame::new(44100,44100),
                 msgf_afrm::AudioFrame::new(44100,44100)],  // 1[sec]
-            r
+            rd_ptr: [0,0],
+            wr_ptr: [(

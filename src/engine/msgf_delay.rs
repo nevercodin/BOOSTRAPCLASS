@@ -42,4 +42,4 @@ impl Delay {
                 [msgf_afrm::AudioFrame::new(44100,44100),
                 msgf_afrm::AudioFrame::new(44100,44100)],  // 1[sec]
             rd_ptr: [0,0],
-            wr_ptr: [(
+            wr_ptr: [(ref_prms.l_time*44100.0) as usize, (ref_prms.r_time

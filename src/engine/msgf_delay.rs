@@ -44,4 +44,5 @@ impl Delay {
             rd_ptr: [0,0],
             wr_ptr: [(ref_prms.l_time*44100.0) as usize, (ref_prms.r_time*44100.0) as usize],
         }
-   
+    }
+    fn inc_ptr(&mut self, str: us

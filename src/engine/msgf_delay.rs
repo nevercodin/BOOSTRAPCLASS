@@ -46,4 +46,6 @@ impl Delay {
         }
     }
     fn inc_ptr(&mut self, str: usize) {
-        self.rd_ptr[str] += 
+        self.rd_ptr[str] += 1;
+        self.wr_ptr[str] += 1;
+        

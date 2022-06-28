@@ -51,4 +51,5 @@ impl Delay {
         if self.rd_ptr[str] >= 44100 {
             self.rd_ptr[str] = 0;
         }
-        
+        if self.wr_ptr[str] >= 44100 {
+    

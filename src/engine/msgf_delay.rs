@@ -53,4 +53,8 @@ impl Delay {
         }
         if self.wr_ptr[str] >= 44100 {
             self.wr_ptr[str] = 0;
-     
+        }
+    }
+}
+impl Engine for Delay {
+    fn process_as

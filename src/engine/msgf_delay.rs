@@ -57,4 +57,4 @@ impl Delay {
     }
 }
 impl Engine for Delay {
-    fn process_as
+    fn process_as(&mut self, in_abuf: [&mut msgf_a

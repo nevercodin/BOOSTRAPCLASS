@@ -58,4 +58,5 @@ impl Delay {
 }
 impl Engine for Delay {
     fn process_as(&mut self, in_abuf: [&mut msgf_afrm::AudioFrame;2]) {
-        let snum = in_abuf[0].sample_nu
+        let snum = in_abuf[0].sample_number;
+        for str in 0

@@ -63,4 +63,4 @@ impl Engine for Delay {
             for i in 0..snum {
                 if let Some(input_dt) = in_abuf[str].get_from_abuf(i)  {
                     let mut crnt_dt: f32 = 0.0;
-                    if let Some(outp
+                    if let Some(output_dt) = self.delay_buffer[str].ge

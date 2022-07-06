@@ -65,4 +65,4 @@ impl Engine for Delay {
                     let mut crnt_dt: f32 = 0.0;
                     if let Some(output_dt) = self.delay_buffer[str].get_from_abuf(self.rd_ptr[str]) {
                         crnt_dt = input_dt + output_dt*self.att_ratio;
-                        if crnt_dt < msgf_if::DAMP_LIMIT_DEPTH &
+                        if crnt_dt < msgf_if::DAMP_LIMIT_DEPTH && -msgf_if::DAMP_LIMIT_DEPTH < 

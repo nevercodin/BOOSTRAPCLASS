@@ -68,4 +68,5 @@ impl Engine for Delay {
                         if crnt_dt < msgf_if::DAMP_LIMIT_DEPTH && -msgf_if::DAMP_LIMIT_DEPTH < crnt_dt {
                             crnt_dt = 0.0;
                         }
-                        in_abuf
+                        in_abuf[str].add_val(i, crnt_dt);
+  

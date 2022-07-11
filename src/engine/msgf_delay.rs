@@ -70,4 +70,4 @@ impl Engine for Delay {
                         }
                         in_abuf[str].add_val(i, crnt_dt);
                     }
-       
+                    self.delay_buffer[str].set_

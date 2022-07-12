@@ -71,3 +71,5 @@ impl Engine for Delay {
                         in_abuf[str].add_val(i, crnt_dt);
                     }
                     self.delay_buffer[str].set_val(self.wr_ptr[str], crnt_dt);
+                }
+                self.inc_ptr(

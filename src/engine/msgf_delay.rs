@@ -75,4 +75,5 @@ impl Engine for Delay {
                 self.inc_ptr(str);
             }
         }
- 
+    }
+}

@@ -163,3 +163,12 @@ impl Engine for Lfo {
             }
             value = value*lvl + ofs;
     
+            abuf.set_cbuf(i, value);
+            self.dac_counter += 1;
+        }
+        while phase > 2.0*msgf_if::PI {
+            phase -= 2.0*msgf_if::PI;
+        }
+        self.next_phase = phase;
+    }
+}

@@ -93,3 +93,39 @@ impl Lfo {
             0 => dir = LfoDirection::LfoBoth,
             1 => dir = LfoDirection::LfoUpper,
             2 => dir = LfoDirection::LfoLower,
+            _ => dir = LfoDirection::LfoBoth,
+        }
+        let wv_num: u8 = value&0x60;
+        let wv: LfoWave;
+        match wv_num {
+            0x00 => wv = LfoWave::Tri,
+            0x20 => wv = LfoWave::Saw,
+            0x40 => wv = LfoWave::Squ,
+            0x60 => wv = LfoWave::Sin,
+            _ => wv = LfoWave::Sin,
+        }
+        let coef = Lfo::calc_wave(wv, dir);
+        self.direction = coef.4;
+        self.x1 = coef.0;
+        self.x2 = coef.1;
+        self.y =  coef.2;
+        self.z = coef.3;
+    }
+    pub fn set_freq(&mut self, value: u8) {
+        self.delta_phase = Lfo::calc_freq((value as f32)/10.0);
+    }
+    pub fn start(&mut self) {
+        self.dac_counter = 0;
+    }
+}
+impl Engine for Lfo {
+    fn process_c(&mut self, abuf: &mut msgf_cfrm::CtrlFrame) {
+        let mut phase = self.next_phase;
+        for i in 0..abuf.sample_number {
+            let mut value = phase;
+            if value < self.x1-phase {
+                value = self.x1-phase;
+            }
+            if value > self.x2-phase {
+                value = self.x2-phase;
+            }

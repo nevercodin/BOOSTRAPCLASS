@@ -129,3 +129,37 @@ impl Engine for Lfo {
             if value > self.x2-phase {
                 value = self.x2-phase;
             }
+            value -= 0.5;
+            value *= self.y;
+            value = value - value*value*value*self.z;
+            
+            phase += self.delta_phase;
+            if phase >= 1.0 {
+                phase -= 1.0;
+            }
+            //	Limit
+            if value > 1.0 {
+                value = 1.0;
+            } else if value < -1.0 {
+                value = -1.0;
+            }
+            //	Fadein, Delay
+            let mut lvl = 1.0;
+            let mut ofs = 0.0;
+            if self.dac_counter < self.fadein_time {
+                lvl = 0.0;
+            } else if self.dac_counter < self.fadein_time+self.delay_time {
+                let tm = (self.dac_counter-self.fadein_time) as f32;
+                lvl = tm/(self.delay_time as f32);
+            }
+        
+            //	Direction
+            if self.direction == LfoDirection::LfoUpper {
+                lvl /= 2.0;
+                ofs = lvl/2.0;
+            } else if self.direction == LfoDirection::LfoLower {
+                lvl /= 2.0;
+                ofs = -lvl/2.0;
+            }
+            value = value*lvl + ofs;
+    

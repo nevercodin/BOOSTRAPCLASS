@@ -90,3 +90,41 @@ impl Osc {
         //let mut y = -(x1*x2*x3*SIN_TABLE[phase_locate+1]/6.0) + (x0*x2*x3*SIN_TABLE[phase_locate+2]/2.0)
         //            -(x0*x1*x3*SIN_TABLE[phase_locate+3]/2.0) + (x0*x1*x2*SIN_TABLE[phase_locate+4]/6.0);
         //assert!(phase_locate < 258, "{},{},{},{}:{}->{}", x0,x1,x2,x3,phase_locate,y);
+        let y0 = msgf_gen::SIN_TABLE[phase_locate+2];                    //  linear interpolation
+        let mut y = (msgf_gen::SIN_TABLE[phase_locate+3] - y0)*x1 + y0;  //
+        if y > 1.0 { y = 1.0 }
+        else if y < -1.0 { y = -1.0 }
+        y
+    }
+    pub fn calc_cnt_pitch(pitch: f32) -> f32 {    //  pitch : [cent]
+        let mut pt: f32 = 1.0;
+        if pitch != 0.0 {
+            pt = (pitch*(2_f32.ln()/1200_f32)).exp();
+        }
+        pt
+    }
+    pub fn change_pitch(&mut self, cnt_pitch:f32) {
+        self.cnt_ratio = Osc::calc_cnt_pitch(cnt_pitch);
+    }
+    fn get_wave_func(&self) -> WvFn {
+        match self.prms_variable.wv_type {
+            WvType::Sine => {
+                //wave_func = |x, _y| {
+                //  let phase = x * 2.0 * msgf_if::PI;
+                //  phase.sin()
+                //}
+                return |x, _y| Osc::pseudo_sine(x);
+            }
+            WvType::Saw => {
+                return |x, y| {
+                    let mut saw: f32 = 0.0;
+                    for j in 1..y {
+                        let ot:f32 = j as f32;
+                        let phase:f32 = x * ot;
+                        saw += 0.5*Osc::pseudo_sine(phase)/ot;
+                    }
+                    saw
+                };
+            }
+            WvType::Square => {
+                return |x, y| {

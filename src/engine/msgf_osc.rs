@@ -55,3 +55,38 @@ impl Osc {
             next_phase: 0.0,
         }
     }
+    pub fn change_pmd(&mut self, value:f32) {self.pmd = value;} // value: 1.0:1oct,-1.0:-1oct
+    pub fn _change_note(&mut self, note:u8) {
+        self.base_pitch = Osc::calc_base_pitch(self.prms_variable.coarse_tune,
+                                            self.prms_variable.fine_tune, note);
+    }
+    pub fn limit_note(calculated_note:i32) -> u8 {
+        let mut note = calculated_note;
+        while note < 0 { note += 12;}
+        while note >= 128 { note -= 12;}
+        note as u8
+    }
+    pub fn calc_base_pitch(coarse_tune:i32, fine_tune:f32, note:u8) -> f32 {
+        let tune_note: u8 = Osc::limit_note(note as i32 + coarse_tune);
+        let solfa_name: u8 = (tune_note + 3)%12;
+        let octave: usize = ((tune_note as usize) + 3)/12;
+        let mut ap = msgf_gen::PITCH_OF_A[octave];
+        let ratio = (2_f32.ln()/12_f32).exp();
+        for _ in 0..solfa_name {
+            ap *= ratio;
+        }
+        ap *= (fine_tune*(2_f32.ln()/1200_f32)).exp();
+        ap
+    }
+    pub fn pseudo_sine(mut phase:f32) -> f32 {
+        // Lagrange interpolation
+        while phase > 1.0 { phase -= 1.0 }
+        let nrm_phase:f32 = phase * 256.0;
+        let phase_locate = nrm_phase.round() as usize;
+        let x1 = nrm_phase - phase_locate as f32;
+        //let x0 = x1 + 1.0; // cubic interpolation
+        //let x2 = x1 - 1.0;
+        //let x3 = x1 - 2.0;
+        //let mut y = -(x1*x2*x3*SIN_TABLE[phase_locate+1]/6.0) + (x0*x2*x3*SIN_TABLE[phase_locate+2]/2.0)
+        //            -(x0*x1*x3*SIN_TABLE[phase_locate+3]/2.0) + (x0*x1*x2*SIN_TABLE[phase_locate+4]/6.0);
+        //assert!(phase_locate < 258, "{},{},{},{}:{}->{}", x0,x1,x2,x3,phase_locate,y);

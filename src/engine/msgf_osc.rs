@@ -128,3 +128,43 @@ impl Osc {
             }
             WvType::Square => {
                 return |x, y| {
+                    let mut sq: f32 = 0.0;
+                    for j in (1..y).step_by(2) {
+                        let ot:f32 = j as f32;
+                        let phase:f32 = x * ot;
+                        sq += 0.25*Osc::pseudo_sine(phase)/ot;
+                    }
+                    sq
+                };
+            }
+            WvType::Pulse => {
+                return |x, y| {
+                    let mut pls: f32 = 0.1;
+                    let mut oti = y;
+                    if oti > 32 {oti = 32;}
+                    for j in 1..oti {
+                        let ot:f32 = j as f32;
+                        let phase:f32 = x * ot;
+                        pls += 0.5*msgf_gen::PULSE0_1[j]*Osc::pseudo_sine(phase);
+                    }
+                    pls
+                }
+            }
+        }
+    }
+}
+impl Engine for Osc {
+    fn process_ac(&mut self, abuf: &mut msgf_afrm::AudioFrame, lbuf: &mut msgf_cfrm::CtrlFrame) {
+        let delta_phase = self.base_pitch*self.cnt_ratio/msgf_if::SAMPLING_FREQ;
+        let mut phase = self.next_phase;
+        let max_overtone: usize = (msgf_gen::ABORT_FREQUENCY/self.base_pitch) as usize;
+        let wave_func: WvFn = self.get_wave_func();
+        for i in 0..abuf.sample_number {
+            abuf.set_val(i, wave_func(phase, max_overtone));
+            let magnitude = lbuf.ctrl_for_audio(i)*self.pmd;
+            phase += delta_phase*(2.0_f32.powf(magnitude));
+            while phase > 1.0 { phase -= 1.0 }
+        }
+        self.next_phase = phase;
+    }
+}

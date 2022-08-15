@@ -30,3 +30,28 @@ pub struct OscParameter {
     pub fine_tune: f32,     //  [cent]
     pub lfo_depth: f32,     //  1.0 means +-1oct.
     pub wv_type: WvType,
+}
+type WvFn = fn(f32, usize) -> f32;
+//---------------------------------------------------------
+//		Definition
+//---------------------------------------------------------
+pub struct Osc {
+    prms_variable: OscParameter,
+    pmd: f32,
+    base_pitch: f32,    //  [Hz]
+    cnt_ratio: f32,     //  ratio of Hz
+    next_phase: f32,    //  0.0 - 1.0
+}
+//---------------------------------------------------------
+//		Implements
+//---------------------------------------------------------
+impl Osc {
+    pub fn new(prms:&OscParameter, note:u8, pmd:f32, cnt_pitch:f32) -> Osc {
+        Osc {
+            prms_variable: *prms,
+            pmd,
+            base_pitch: Osc::calc_base_pitch(prms.coarse_tune, prms.fine_tune, note),
+            cnt_ratio: Osc::calc_cnt_pitch(cnt_pitch),
+            next_phase: 0.0,
+        }
+    }

@@ -1,3 +1,4 @@
 //
 //  msgf_sd_delay.rs
-//	Musical Sound 
+//	Musical Sound Generator Framework
+//      Send Delay 

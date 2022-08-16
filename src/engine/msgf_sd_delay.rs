@@ -4,4 +4,5 @@
 //      Send Delay Class
 //      ( Send means: 
 //          no dry,
-//       
+//          includes all parts,
+//        

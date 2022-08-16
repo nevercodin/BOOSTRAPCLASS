@@ -8,4 +8,4 @@
 //          controled by CC#91 )
 //
 //  Created by Hasebe Masahiko on 2022/04/11.
-//  C
+//  Copyright (c) 2022 Hasebe Masahiko

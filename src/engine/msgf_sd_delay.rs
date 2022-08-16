@@ -3,3 +3,5 @@
 //	Musical Sound Generator Framework
 //      Send Delay Class
 //      ( Send means: 
+//          no dry,
+//       

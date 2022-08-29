@@ -22,4 +22,5 @@ use crate::engine::msgf_gen::*;
 //---------------------------------------------------------
 //		Definition
 //---------------------------------------------------------
-struct
+struct SingleBuf {
+    delay_buffer: msgf_afrm

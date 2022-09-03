@@ -23,4 +23,6 @@ use crate::engine::msgf_gen::*;
 //		Definition
 //---------------------------------------------------------
 struct SingleBuf {
-    delay_buffer: msgf_afrm
+    delay_buffer: msgf_afrm::AudioFrame,
+    rd_ptr: usize,
+    wr_pt

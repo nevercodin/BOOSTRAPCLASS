@@ -25,4 +25,7 @@ use crate::engine::msgf_gen::*;
 struct SingleBuf {
     delay_buffer: msgf_afrm::AudioFrame,
     rd_ptr: usize,
-    wr_pt
+    wr_ptr: usize,
+}
+pub struct SdDelay {
+  

@@ -28,4 +28,5 @@ struct SingleBuf {
     wr_ptr: usize,
 }
 pub struct SdDelay {
-  
+    att_ratio: f32,
+    dbuf: [SingleBuf; 2

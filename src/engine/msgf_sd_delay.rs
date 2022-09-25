@@ -35,4 +35,6 @@ pub struct SdDelay {
 //		Implements
 //---------------------------------------------------------
 impl SingleBuf {
-    fn init(wr: usize) 
+    fn init(wr: usize) -> Self {
+        Self { 
+            delay

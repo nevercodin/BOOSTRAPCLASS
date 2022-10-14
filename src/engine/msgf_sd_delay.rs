@@ -37,4 +37,5 @@ pub struct SdDelay {
 impl SingleBuf {
     fn init(wr: usize) -> Self {
         Self { 
-            delay_buffer: msgf_afrm::AudioFrame::new(441
+            delay_buffer: msgf_afrm::AudioFrame::new(44100,44100),
+            rd_ptr

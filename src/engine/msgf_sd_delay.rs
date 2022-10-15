@@ -38,4 +38,5 @@ impl SingleBuf {
     fn init(wr: usize) -> Self {
         Self { 
             delay_buffer: msgf_afrm::AudioFrame::new(44100,44100),
-            rd_ptr
+            rd_ptr: 0, wr_ptr: wr,
+        }

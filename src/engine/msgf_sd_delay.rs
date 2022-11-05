@@ -45,4 +45,5 @@ impl SingleBuf {
 impl SdDelay {
     pub fn new(ref_prms: &msgf_delay::DelayParameter) -> Self {
         let wrl: usize = (ref_prms.l_time*44100.0) as usize;
-        let wrr: usize = (ref_prms.r_time
+        let wrr: usize = (ref_prms.r_time*44100.0) as usize;
+        SdDelay

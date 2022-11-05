@@ -48,4 +48,4 @@ impl SdDelay {
         let wrr: usize = (ref_prms.r_time*44100.0) as usize;
         SdDelay {
             att_ratio: ref_prms.att_ratio,
-            dbuf:
+            dbuf: [SingleBuf::init(wrl), SingleBuf::init

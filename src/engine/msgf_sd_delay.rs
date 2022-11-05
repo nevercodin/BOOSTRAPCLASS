@@ -43,4 +43,4 @@ impl SingleBuf {
     }
 }
 impl SdDelay {
-    pub fn
+    pub fn new(ref_prms: &msgf_delay::DelayParameter) -

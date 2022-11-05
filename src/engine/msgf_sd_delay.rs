@@ -47,4 +47,5 @@ impl SdDelay {
         let wrl: usize = (ref_prms.l_time*44100.0) as usize;
         let wrr: usize = (ref_prms.r_time*44100.0) as usize;
         SdDelay {
-            att_ratio: ref_prms
+            att_ratio: ref_prms.att_ratio,
+            dbuf:

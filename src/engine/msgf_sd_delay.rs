@@ -40,3 +40,7 @@ impl SingleBuf {
             delay_buffer: msgf_afrm::AudioFrame::new(44100,44100),
             rd_ptr: 0, wr_ptr: wr,
         }
+    }
+}
+impl SdDelay {
+    pub fn

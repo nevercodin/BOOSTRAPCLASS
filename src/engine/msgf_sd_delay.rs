@@ -52,4 +52,5 @@ impl SdDelay {
         }
     }
     fn inc_ptr(&mut self, str: usize) {
+        self.dbuf[str].rd_ptr += 1;
         self.dbuf

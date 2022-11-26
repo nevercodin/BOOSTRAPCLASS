@@ -51,4 +51,5 @@ impl SdDelay {
             dbuf: [SingleBuf::init(wrl), SingleBuf::init(wrr)],
         }
     }
-    fn inc_
+    fn inc_ptr(&mut self, str: usize) {
+        self.dbuf

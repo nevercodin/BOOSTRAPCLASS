@@ -54,4 +54,5 @@ impl SdDelay {
     fn inc_ptr(&mut self, str: usize) {
         self.dbuf[str].rd_ptr += 1;
         self.dbuf[str].wr_ptr += 1;
-        if self.dbuf
+        if self.dbuf[str].rd_ptr >= 44100 {
+            self.dbuf[

@@ -58,4 +58,8 @@ impl SdDelay {
             self.dbuf[str].rd_ptr = 0;
         }
         if self.dbuf[str].wr_ptr >= 44100 {
-            self.dbuf[str].wr_p
+            self.dbuf[str].wr_ptr = 0;
+        }
+    }
+}
+impl Engine for Sd

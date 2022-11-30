@@ -55,4 +55,6 @@ impl SdDelay {
         self.dbuf[str].rd_ptr += 1;
         self.dbuf[str].wr_ptr += 1;
         if self.dbuf[str].rd_ptr >= 44100 {
-            self.dbuf[
+            self.dbuf[str].rd_ptr = 0;
+        }
+ 

@@ -65,4 +65,5 @@ impl SdDelay {
 impl Engine for SdDelay {
     fn process_as2(&mut self, 
         in_abuf: [&mut msgf_afrm::AudioFrame;2], 
-        out_abuf: 
+        out_abuf: [&mut msgf_afrm::AudioFrame;2]) {
+        let snu

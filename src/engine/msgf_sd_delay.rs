@@ -70,4 +70,5 @@ impl Engine for SdDelay {
         for str in 0..2 {
             for i in 0..snum {
                 if let Some(input_dt) = in_abuf[str].get_from_abuf(i) {
-                    if let Some(
+                    if let Some(output_dt) = 
+                      sel

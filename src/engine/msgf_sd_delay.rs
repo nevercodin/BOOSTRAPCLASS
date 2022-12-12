@@ -68,4 +68,5 @@ impl Engine for SdDelay {
         out_abuf: [&mut msgf_afrm::AudioFrame;2]) {
         let snum = in_abuf[0].sample_number;
         for str in 0..2 {
-           
+            for i in 0..snum {
+                if let

@@ -66,4 +66,5 @@ impl Engine for SdDelay {
     fn process_as2(&mut self, 
         in_abuf: [&mut msgf_afrm::AudioFrame;2], 
         out_abuf: [&mut msgf_afrm::AudioFrame;2]) {
-        let snu
+        let snum = in_abuf[0].sample_number;
+      

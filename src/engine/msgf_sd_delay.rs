@@ -73,4 +73,5 @@ impl Engine for SdDelay {
                     if let Some(output_dt) = 
                       self.dbuf[str].delay_buffer.get_from_abuf(self.dbuf[str].rd_ptr) {
                         let out = output_dt*self.att_ratio;
-                   
+                        out_abuf[str].set_val(i, out);
+     

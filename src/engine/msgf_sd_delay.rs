@@ -75,4 +75,6 @@ impl Engine for SdDelay {
                         let out = output_dt*self.att_ratio;
                         out_abuf[str].set_val(i, out);
                         self.dbuf[str].delay_buffer.set_val(self.dbuf[str].wr_ptr, input_dt+out);
-          
+                    }
+                }
+      

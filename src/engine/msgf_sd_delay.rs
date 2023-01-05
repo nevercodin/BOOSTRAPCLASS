@@ -77,4 +77,5 @@ impl Engine for SdDelay {
                         self.dbuf[str].delay_buffer.set_val(self.dbuf[str].wr_ptr, input_dt+out);
                     }
                 }
-      
+                self.inc_ptr(str);
+   

@@ -87,3 +87,27 @@ impl Vocal {
         else if y < -1.0 { y = -1.0 }
         y
     }
+    pub fn calc_cnt_pitch(pitch: f32) -> f32 {    //  pitch : [cent]
+        let mut pt: f32 = 1.0;
+        if pitch != 0.0 {
+            pt = (pitch*(2_f32.ln()/1200_f32)).exp();
+        }
+        pt
+    }
+    pub fn change_pitch(&mut self, cnt_pitch:f32) {
+        self.cnt_ratio = Vocal::calc_cnt_pitch(cnt_pitch);
+    }
+}
+impl Engine for Vocal {
+    fn process_ac(&mut self, abuf: &mut msgf_afrm::AudioFrame, lbuf: &mut msgf_cfrm::CtrlFrame) {
+        let delta_phase = self.base_pitch*self.cnt_ratio/msgf_if::SAMPLING_FREQ;
+        let mut phase = self.next_phase;
+        for i in 0..abuf.sample_number {
+            abuf.set_val(i, Vocal::gen_wave(phase));
+            let magnitude = lbuf.ctrl_for_audio(i)*self.pmd;
+            phase += delta_phase*(2.0_f32.powf(magnitude));
+            while phase > 1.0 { phase -= 1.0 }
+        }
+        self.next_phase = phase;
+    }
+}

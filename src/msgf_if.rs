@@ -42,3 +42,40 @@ pub struct Msgf {
     delay: msgf_sd_delay::SdDelay,
     in_number_frames: u32,
 }
+//---------------------------------------------------------
+//		Implements
+//---------------------------------------------------------
+impl msgf_disp::MsgfDisplay for Msgf {}
+impl Msgf {
+    pub fn new() -> Self {
+        let dprm = msgf_delay::DelayParameter {
+            l_time: TOTAL_EFF_DLY_TIME_L,   //  0.0 - 1.0 [sec]
+            r_time: TOTAL_EFF_DLY_TIME_R,   //  0.0 - 1.0 [sec]
+            att_ratio: TOTAL_EFF_ATT_RATE,
+        };        
+        Self {
+            msg_buf: Vec::new(),
+            part: Vec::new(),
+            audio_buffer_l: msgf_afrm::AudioFrame::new(0,MAX_BUFFER_SIZE),
+            audio_buffer_r: msgf_afrm::AudioFrame::new(0,MAX_BUFFER_SIZE),
+            audio_buffer_send_effect_l: msgf_afrm::AudioFrame::new(0,MAX_BUFFER_SIZE),
+            audio_buffer_send_effect_r: msgf_afrm::AudioFrame::new(0,MAX_BUFFER_SIZE),
+            audio_buffer_total_effect_l: msgf_afrm::AudioFrame::new(0,MAX_BUFFER_SIZE),
+            audio_buffer_total_effect_r: msgf_afrm::AudioFrame::new(0,MAX_BUFFER_SIZE),
+            delay: msgf_sd_delay::SdDelay::new(&dprm),
+            in_number_frames: 0,
+        }
+    }
+    pub fn init(&mut self) {    // call this fn just after new()
+        for _ in 0..MAX_PART_NUM {
+            self.part.push(msgf_part::Part::new());
+        };
+        self.print_str(REV_NUM);
+    }
+    pub fn recieve_midi_message(&mut self, dt1: u8, dt2: u8, dt3: u8) {
+        let ch: usize = (dt1 & 0x0f).into();
+        let status = dt1 & 0xf0;
+
+        if ch >= MAX_PART_NUM {
+            return;
+        };

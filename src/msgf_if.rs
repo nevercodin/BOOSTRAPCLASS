@@ -79,3 +79,39 @@ impl Msgf {
         if ch >= MAX_PART_NUM {
             return;
         };
+
+        let msg: (u8,usize,u8,u8) = (status, ch, dt2, dt3);
+        self.msg_buf.push(msg);
+    }
+    fn parse_msg(&mut self) {
+        if self.msg_buf.len() == 0 { return }
+        let (status, ch, dt2, dt3) = self.msg_buf.remove(0);
+        let pt = &mut self.part[ch];
+        match status {
+            0x80 => pt.note_off(dt2, dt3),
+            0x90 => if dt3 == 0 { pt.note_off(dt2, dt3);} else { pt.note_on(dt2, dt3);},
+            0xa0 => pt.per_note_after(dt2, dt3),
+            0xb0 => pt.control_change(dt2, dt3),
+            0xc0 => pt.program_change(dt2),
+            0xe0 => {
+                let mut bend: i16 = dt2.into();
+                bend += dt3 as i16*128;
+                bend -= 8192;
+                pt.pitch_bend(bend);
+            }
+            _ => {}
+        };
+    }
+    pub fn process(&mut self,
+      abuf_l: &mut [f32; MAX_BUFFER_SIZE],
+      abuf_r: &mut [f32; MAX_BUFFER_SIZE],
+      in_number_frames: u32) {
+        self.parse_msg();   // MIDI message
+        if self.in_number_frames != in_number_frames {
+            self.print_prm("Audio Buffer: ", in_number_frames);
+            self.in_number_frames = in_number_frames;
+        }
+        self.audio_buffer_l.set_sample_number(in_number_frames as usize);
+        self.audio_buffer_r.set_sample_number(in_number_frames as usize);
+        // init effect buffer
+        self.audio_buffer_send_effect_l.set_sample_number(in_number_frames as usize);

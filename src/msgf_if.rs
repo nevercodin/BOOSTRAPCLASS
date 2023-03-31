@@ -115,3 +115,42 @@ impl Msgf {
         self.audio_buffer_r.set_sample_number(in_number_frames as usize);
         // init effect buffer
         self.audio_buffer_send_effect_l.set_sample_number(in_number_frames as usize);
+        self.audio_buffer_send_effect_r.set_sample_number(in_number_frames as usize);
+        self.audio_buffer_total_effect_l.set_sample_number(in_number_frames as usize);
+        self.audio_buffer_total_effect_r.set_sample_number(in_number_frames as usize);
+        if MAX_PART_NUM >= 1 {
+            //  Dry Sound:      Part 1 は copy
+            //  Total Effect:   total_effect 用のバッファに直接書き込み
+            self.part[0].process(
+                &mut self.audio_buffer_l,
+                &mut self.audio_buffer_r,
+                &mut self.audio_buffer_total_effect_l,
+                &mut self.audio_buffer_total_effect_r,
+                in_number_frames as usize);
+            self.audio_buffer_l.copy_to_sysbuf(abuf_l);  // L
+            self.audio_buffer_r.copy_to_sysbuf(abuf_r);  // R
+        }
+        for i in 1..MAX_PART_NUM {
+            //  Dry Sound:      Part 2 以降は add, 
+            //  Total Effect:   send_effect に入れたものを total_effect に足し込む
+            self.part[i].process(
+                &mut self.audio_buffer_l,
+                &mut self.audio_buffer_r,
+                &mut self.audio_buffer_send_effect_l,
+                &mut self.audio_buffer_send_effect_r,
+                in_number_frames as usize);
+            //  Dry Sound を Sysbuf に足し込む
+            self.audio_buffer_l.add_to_sysbuf(abuf_l);  // L
+            self.audio_buffer_r.add_to_sysbuf(abuf_r);  // R
+            //  Send を足し合わせる  in:send_effect -> out:total_effect
+            self.audio_buffer_total_effect_l.mix_and_check_no_sound(&mut self.audio_buffer_send_effect_l);  // L
+            self.audio_buffer_total_effect_r.mix_and_check_no_sound(&mut self.audio_buffer_send_effect_r);  // R
+        };
+        //  Total Effect をかける in:total_effect -> out:send_effect
+        self.delay.process_as2([&mut self.audio_buffer_total_effect_l, &mut self.audio_buffer_total_effect_r],
+                               [&mut self.audio_buffer_send_effect_l, &mut self.audio_buffer_send_effect_r]);
+        //  Total Effect を sysbuf に足す
+        self.audio_buffer_send_effect_l.add_to_sysbuf(abuf_l);  // L
+        self.audio_buffer_send_effect_r.add_to_sysbuf(abuf_r);  // R
+    }
+}
